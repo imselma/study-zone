@@ -1,0 +1,98 @@
+.main-container3 {
+    width: 100%;
+    height: 100vh;
+    background-image: linear-gradient(to top, #3fadfdb0, #08dbfa33, white); 
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+    background-position: center;
+}
+
+.text-logo {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+}
+.main-container3 .content .main-logo {
+    margin: 0 auto; 
+    margin-top: 1px;
+    display: block; /*Ensuring the image is treated as a block-level element */
+    width: 4.5vw;
+    margin-right: 1vw;
+}
+
+.login-text {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    text-align: center; 
+}
+
+.login-text #login {
+    font-size: 2.3vw;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color:#0089c2;
+    text-shadow: rgba(0, 0, 0, 0.30) 0px 3px 8px;
+    font-weight: bold;
+    margin-top: -1vw;
+}
+
+.card1 {
+    width: 40%;
+    align-items: center;
+    margin: 0 auto;
+    margin-top: 2vw;
+    border-radius: 20px;
+    background-color: #eaeaea8c;
+}
+
+.card1 .control.has-icons-left .input, .control.has-icons-left .select select {
+    border-radius: 1vw;
+    padding-left: 2.5em;
+    margin-top: 1vw;
+    border-color: #0089c2;
+    color: #0089c2;
+}
+
+.crad1 .control .button.is-success {
+    width: 8vw;
+    margin-top: 2vw;
+    background-color: #0089c2;
+    border-color: transparent;
+    color: #fff;
+    border-radius: 1vw;
+}
+
+.card1 .control .button.is-success:hover {
+    background-color:#0089c2;
+    text-decoration: underline;
+}
+
+
+#.card1 button {
+    color: #0089c2;
+    border: transparent;
+    background-color: transparent;
+    font-weight: 600;
+    font-size: 1.3vw;
+    margin-right: -1vw;
+
+}
+
+.card1 #button:hover, 
+.card1 #button:focus {
+    color: #eaeaea;
+    background-color: transparent;
+    border: none; 
+    box-shadow: none; 
+    outline: none; 
+}
+
+#text {
+    font-weight: 600;
+    font-size: 1.3vw;
+    color: #0089c2;
+    margin-right: 20px;
+}

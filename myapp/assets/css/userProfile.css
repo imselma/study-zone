@@ -1,0 +1,131 @@
+#html1 {
+    overflow-y: hidden;
+}
+
+.navigation .navbar {
+    border-bottom: 2px solid #0089c2;
+    background-color:#eaeaea;
+    height: 4.5vw;
+    background-image: linear-gradient(to left, #3fadfdb0, #08dbfa33, #eaeaea);
+  }
+
+.app-name {
+    color:#0089c2;
+    font-weight: bold;
+    margin-left: -10px;
+    font-size: 22px;
+} 
+
+.navigation .navbar .navbar-item {
+    font-size: 1.3rem;
+    color: #eaeaea;
+    font-weight: 600;
+}
+
+#navigation-button {
+    background-color:#0272a1;
+    height: 37px;
+    margin-right: 20px;
+    margin-left: 10px;
+    color:#eaeaea;
+    border-radius: 13px;
+    margin-top: 0px;
+}
+
+
+.profile-button img {
+    width: 3.5vw;
+    height: 4vw; 
+    margin-right: 2vw;
+}
+
+.navbar-brand {
+    justify-content: center;
+    justify-items: center;
+}
+
+.navbar-menu .navbar-end .navbar-item :hover {
+    text-decoration: underline;
+    background-color: inherit;
+}
+
+#boxId {
+    width: 7vw;
+    height: 103vh;
+    background-color: #eaeaea;
+    border-radius: 0%;
+}
+
+.left-items1, .left-items2, .left-items3, .left-items4 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.left-items2 img {
+    height: 2.2vw;
+    margin-top: 5vw;
+
+}
+.left-items3 img {
+    height: 2.2vw;
+    margin-top: 5vw;
+
+}
+.left-items4 img {
+    height: 2.2vw;
+    margin-top: 5vw;
+
+}
+
+.left-items1 img {
+    height: 2.2vw;
+    margin-top: 2vw;
+
+}
+
+.name {
+    color:#0089c2;
+    font-weight: bold;
+    justify-content: center;
+    font-size: 1.05vw;
+    margin-top: 1vw;
+} 
+
+.content {
+    display: flex;
+    flex-direction: row;
+    align-items:first baseline;
+}
+
+.content .title {
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color:#0089c2;
+    text-shadow: rgba(0, 0, 0, 0.30) 0px 3px 8px;
+    font-weight: bold;
+    margin: 2vw;
+    font-size: 2.1vw;
+}
+
+#add {
+    margin-left: 2vw;
+    margin-top: 10px;
+    width: 8vw;
+    background-color:#0089c2;
+    box-shadow: rgba(0, 0, 0, 0.30) 0px 3px 8px;
+    color:#eaeaea;
+    font-weight: 500;
+    font-size: 1.1vw;
+}
+
+.two-boxes {
+    display: flex;
+    flex-direction: row;
+}
+
+.content2 p {
+    margin: 2vw;
+    font-size: 1.5vw;
+}
+

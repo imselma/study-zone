@@ -1,0 +1,17 @@
+[
+    {
+      "name": "Milestone #1 - Introduction to Web Programming",
+      "description": "Make all frontend components for project",
+      "deadline": "09:00 AM - 12 Mar 2024"
+    },
+    {
+      "name": "Milestone #2 - Backend Development",
+      "description": "Setup server and database connections",
+      "deadline": "02:30 PM - 15 Mar 2024"
+    },
+    {
+      "name": "Milestone #3 - Deployment",
+      "description": "Deploy application on hosting server",
+      "deadline": "10:00 AM - 20 Mar 2024"
+    }
+]

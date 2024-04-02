@@ -1,0 +1,32 @@
+.navigation .navbar {
+    background-color: #0089c2;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  }
+
+.app-name {
+    color: #eaeaea;
+    font-weight: bold;
+    margin-left: -10px;
+    font-size: 22px;
+} 
+
+.navigation .navbar .navbar-item img{
+    font-size: 1.3rem;
+    color:#0089c2;
+    font-weight: 600;
+}
+
+#navigation-button {
+    background-color:#0272a1;
+    height: 37px;
+    margin-right: 20px;
+    margin-left: 10px;
+    color:#eaeaea;
+    border-radius: 13px;
+    margin-top: 0px;;
+}
+
+.navbar-menu .navbar-end .navbar-item :hover {
+    text-decoration: underline;
+    background-color: inherit;
+}

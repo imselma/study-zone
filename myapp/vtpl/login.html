@@ -1,0 +1,38 @@
+<body>
+  <main class="main-container2">
+      <div class="content">
+          <img class="main-logo" src="./assets/img/mainLogoo.png" width="80" height="20">
+      </div>
+      <div class="login-text">
+          <h3 id="login">Login and keep your deadlines on track.</h3>
+      </div>
+      <div class="card2">
+        <div class="card-content">
+          <div class="subcontent">
+            <div class="field">
+                <p class="has-icons-right">
+                  <input class="input" type="email" placeholder="Email">
+                </p>
+              </div>
+              <div class="field">
+                <p class="control has-icons-left">
+                  <input class="input" type="password" placeholder="Password">
+                </p>
+              </div>
+              <div class="field">
+                <p class="control">
+                  <button class="button is-success">
+                    Login
+                  </button>
+                </p>
+              </div>
+          </div>
+        </div>
+      </div>
+  </main>
+</body>
+<script>
+   $(".button.is-success").on("click", () => {
+        window.location.hash = "dashboard";
+    });
+</script>
