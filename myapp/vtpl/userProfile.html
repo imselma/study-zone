@@ -11,102 +11,130 @@
 
 <body>
     <header>
-        <div class="navigation">
-            <nav class="navbar" role="navigation" aria-label="main navigation">
-                <div class="navbar-brand">
-                    <a class="navbar-item">
-                        <img src="./assets/img/gradCap.svg" width="80" height="20">
-                        <p class="app-name">Study Zone</p>
-                    </a>
-                    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
+        <nav class="navbar" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand">
+                <a class="navbar-item">
+                    <img src="./assets/img/gradCap.svg" width="80" height="20">
+                    <p class="app-name">Study Zone</p>
+                </a>
+
+                <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
                     data-target="navbarBasicExample">
                     <span aria-hidden="true"></span>
                     <span aria-hidden="true"></span>
                     <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
                 </a>
-                </div>
+            </div>
 
-                <div id="navbarBasicExample" class="navbar-menu">
-                    <div class="navbar-end">
-                        <div class="navbar-item">
-                            <div class="buttons">
-                                <a class="profile-button">
-                                    <img src="./assets/img/user-solidd.svg" width="80" height="20">
-                                </a>  
-                                <a id="navigation-button" class="button is-info is-responsive is-normal">
-                                    <strong>Log out</strong>
-                                </a>
-                            </div>
+            <div id="navbarBasicExample" class="navbar-menu">
+                <div class="navbar-start">
+                    <a class="navbar-item" id="profile-button">
+                        Profile
+                    </a>
+                    <div class="navbar-item has-dropdown is-hoverable">
+                        <a class="navbar-link">
+                            Menu
+                        </a>
+                        <div class="navbar-dropdown">
+                            <a class="navbar-item" id="one">
+                                Dashboard
+                            </a>
+                            <a class="navbar-item" id="two">
+                                Tasks
+                            </a>
+                            <a class="navbar-item" id="three">
+                                Notes
+                            </a>
+                            <a class="navbar-item" id="four">
+                                Exams
+                            </a>
                         </div>
                     </div>
                 </div>
-            </nav>
-        </div>
+
+                <div class="navbar-end">
+                    <div class="navbar-item">
+                        <div class="buttons">
+                            <a class="button is-light" id="logout">
+                                Log Out
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
     </header>
     <main>
-        <div class="two-boxes">
-            <div class="box" id="boxId">
-                <a class="left-items1">
-                    <img src="./assets/img/gauge-high-solid.svg" width="80" height="20">
-                    <p class="name">Dashboard</p>
-                </a>
-                <a class="left-items2">
-                    <img src="./assets/img/list-check-solid.svg" width="80" height="20">
-                    <p class="name">Tasks</p>
-                </a>
-                <a class="left-items3">
-                    <img src="./assets/img/pen-to-square-solid.svg" width="80" height="20">
-                    <p class="name">Exams</p>
-                </a>
-                <a class="left-items4">
-                    <img src="./assets/img/note-sticky-solid.svg" width="80" height="20">
-                    <p class="name">Notes</p>
-                </a>
-            </div>
-            <div id="user-content">
-                <div id="profile" style="margin: 40px;"></div>
-    
-            </div>
+      <div class="order">
+        <div class="profile-title-div">
+          <p class="profile-title">MY PROFILE</p>
+          <p id="currentDate"></p>
         </div>
+        <div id="user-content">
+          <div id="profile" style="margin: 40px;"></div>
+      </div>
+      </div>
     </main>
 </body>
+<!--Script for open and close the hamburger menu-->
 <script>
-    function toggleMenu() {
-        $(".navbar-menu").toggleClass("is-active");
-    }
-
-    $(".navbar-burger").on("click", function () {
-        toggleMenu();
-    });
-
-
-    $(document).on("click", function (event) {
-        if (!$(event.target).closest(".navigation").length) {
-            $(".navbar-menu").removeClass("is-active");
+    $(document).ready(function() {
+      function toggleMenu() {
+        if ($(".navbar-menu").hasClass("is-active")) {
+          $(".navbar-menu").removeClass("is-active");
+        } else {
+          $(".navbar-burger").on("click", function () {
+            $(".navbar-menu").toggleClass("is-active");
+          });
         }
+      }
+  
+      toggleMenu();
     });
-</script>
-<script>
-    $(".left-items1").on("click", () => {
-         window.location.hash = "dashboard";
-     });
- </script>
-<script>
-    $(".left-items2").on("click", () => {
-         window.location.hash = "tasks";
-     });
- </script>
- <script>
-    $(".left-items4").on("click", () => {
-         window.location.hash = "notes";
-     });
-</script>
-<script>
-    $(".button.is-info.is-responsive.is-normal").on("click", () => {
-    window.location.hash = "home";
-});
- </script>
-
+  </script>
+  
+  <!--Script for open and close the dropdown menu-->
+  <!--<script>
+    $(document).ready(function() {
+      function toggleDropdown() {
+        $(".navbar-item.has-dropdown.is-hoverable").on("click", function() {
+          $(".navbar-dropdown").toggleClass("is-active");
+        });
+      }
+      
+      toggleDropdown();
+    });
+  </script>-->
+  
+  <script>
+    $(document).ready(function() {
+      $("#one").on("click", () => {
+        window.location.hash = "dashboard";
+      });
+  
+      $("#two").on("click", () => {
+        window.location.hash = "tasks";
+      });
+  
+      $("#four").on("click", () => {
+        window.location.hash = "exams";
+      });
+  
+      $("#three").on("click", () => {
+        window.location.hash = "notes";
+      });
+  
+      $("#logout").on("click", () => {
+        window.location.hash = "home";
+      });
+  
+      $("#profile-button").on("click", () => {
+        window.location.hash = "userProfile";
+      });
+    });
+  </script>
+  
 <script src="assets/js/getUser.js"></script>
 
 </html>

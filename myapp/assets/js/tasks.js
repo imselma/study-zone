@@ -1,9 +1,9 @@
 getTasks = () => {
-    $.get("../tasks.json", (data) => {
-        let output = '';
-        data.forEach((task) => {
-            output +=  `
-            <div class="card" id="task-card" style="margin-bottom: 10px;>
+  $.get("../tasks.json", (data) => {
+    let output = '';
+    data.forEach((task) => {
+      output += `
+            <div class="card" id="task-card" style="margin-bottom: 40px; width: 450px;">
             <header class="card-header">
               <p class="card-header-title">
               ${task.name}
@@ -19,11 +19,16 @@ getTasks = () => {
           </div>
     </div>
             `;
-        });
-        let output2 = '';
-            data.forEach((task) => {
-                output2 += `
-                <div class="card" id="task-card" style="margin-bottom: 10px;>
+    });
+    let output2 = '';
+    if (data.length === 0) {
+      output2 += `
+          <p>No tasks to do.</p>
+          `;
+    } else {
+      data.forEach((task) => {
+        output2 += `
+                <div class="card" id="task-card" style="margin-bottom: 10px; margin-left: 10px;>
             <header class="card-header">
               <p class="card-header-title">
               ${task.name}
@@ -37,11 +42,12 @@ getTasks = () => {
           </div>
     </div>
         `;
-            });
+      });
+    }
 
-            $("#task-container").append(output);
-            $("#dashTasks").append(output2);
-    });
+    $("#task-container").append(output);
+    $("#dashTasks").append(output2);
+  });
 }
 
 getTasks();

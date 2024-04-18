@@ -7,13 +7,17 @@
     <title>Study Zone</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <!-- CSS files -->
-    <link rel="stylesheet" href="./assets/css/index.css">
+    <link rel="stylesheet" href="./assets/css/navigation.css">
+    <link rel="stylesheet" href="./assets/css/dashboard.css">
+    <link rel="stylesheet" href="./assets/css/exams.css">
+    <link rel="stylesheet" href="./assets/css/tasks.css">
+    <link rel="stylesheet" href="./assets/css/notes.css">
     <link rel="stylesheet" href="./assets/css/home.css">
     <link rel="stylesheet" href="./assets/css/features.css">
+    <link rel="stylesheet" href="./assets/css/signup.css">
     <link rel="stylesheet" href="./assets/css/login.css">
-    <link rel="stylesheet" href="./assets/css/tasks.css">
-    <link rel="stylesheet" href="./assets/css/dashboard.css">
     <link rel="stylesheet" href="./assets/css/userProfile.css">
+    <link rel="stylesheet" href="./assets/css/index.css">
     <!-- SPApp CSS -->
     <link rel="stylesheet" href="./assets/css/jQuerySPApp.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
@@ -21,21 +25,20 @@
 
 <body>
     <header>
-        <div class="navigation">
-            <nav class="navbar" role="navigation" aria-label="main navigation">
-                <div class="navbar-brand">
-                    <a class="navbar-item">
-                        <img src="./assets/img/gradCap.svg" width="80" height="20">
-                        <p class="app-name">Study Zone</p>
-                    </a>
-                    <!-- Hamburger menu -->
-                    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
-                        data-target="navbarBasicExample">
-                        <span aria-hidden="true"></span>
-                        <span aria-hidden="true"></span>
-                        <span aria-hidden="true"></span>
-                    </a>
-                </div>
+        <nav class="navbar" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand">
+              <a class="navbar-item">
+                <img src="./assets/img/gradCap.svg" width="80" height="20">
+                <p class="app-name">Study Zone</p>
+              </a>
+          
+              <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+              </a>
+            </div>
 
                 <div id="navbarBasicExample" class="navbar-menu">
                     <div class="navbar-end">
@@ -45,16 +48,17 @@
                         <a href="#features" class="navbar-item">
                             Features
                         </a>
-                        <a href="#login" id="navigation-button" class="button is-info is-responsive is-normal">
-                            <strong>Login</strong>
-                        </a>
-                        <!-- <a href="#signup" id="navigation-button" class="button is-info is-responsive is-normal">
-                            <strong>Sign Up</strong>
-                        </a> -->
+                        <div class="buttons" id="nav-buttons">
+                            <a href="#login" class="button is-light" id="login-bttn">
+                              Login
+                            </a>
+                            <a href="#signup" class="button is-light" id="signup-bttn">
+                              Signup
+                            </a>
+                        </div>
                     </div>
                 </div>
             </nav>
-        </div>
     </header>
 
     <main id="jqueryspapp" role="main">
@@ -63,6 +67,7 @@
         <section id="exams" data-load="exams.html"></section>
         <section id="tasks" data-load="tasks.html"></section>
         <section id="dashboard" data-load="dashboard.html"></section>
+        <section id="signup" data-load="signup.html"></section>
         <section id="login" data-load="login.html"></section>
         <section id="features" data-load="features.html"></section>
         <section id="home" data-load="home.html"></section>
@@ -74,7 +79,7 @@
     <!-- JQuery for SPApp -->
     <script src="./assets/js/jQuerySPApp.js"></script>
 
-    <script>
+   <script>
         function toggleMenu() {
             $(".navbar-menu").toggleClass("is-active");
         }
@@ -84,24 +89,23 @@
         });
 
 
-        $(document).on("click", function (event) {
+       /* $(document).on("click", function (event) {
             if (!$(event.target).closest(".navigation").length) {
                 $(".navbar-menu").removeClass("is-active");
             }
-        });
+        });*/
     </script>
-
     <script>
-        function toggleNavigation() {
+        function hideNavigation() {
             if (["#dashboard", "#exams", "#notes", "#tasks", "#userProfile"].includes(window.location.hash)) {
-                $(".navigation").hide();
+                $(".navbar").hide();
             } else {
-                $(".navigation").show();
+                $(".navbar").show();
             }
         }
-        toggleNavigation();
+        hideNavigation();
         $(window).on("hashchange", function () {
-            toggleNavigation();
+            hideNavigation();
         });
     </script>
 
@@ -112,6 +116,7 @@
             //define routes
             app.route({ view: 'home', load: 'home.html' });
             app.route({ view: 'features', load: 'features.html' });
+            app.route({ view: 'signup', load: 'signup.html' });
             app.route({ view: 'login', load: 'login.html' });
             app.route({ view: 'dashboard', load: 'dashboard.html' });
             app.route({ view: 'tasks', load: 'tasks.html' });

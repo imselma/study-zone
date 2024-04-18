@@ -2,7 +2,7 @@ getUser = () => {
     $.get("../user.json", (data) => {
         let output = '';
             output +=  `
-                <img src="${data.picture}" alt="User Photo" class="profile-photo" style="width: 110px; height: 100px;">
+                <img src="${data.picture}" alt="User Photo" class="profile-photo" style="width: 160px; height: 150px;">
                 <div class="profile-details">
                     <p class="name" style="font-size: 25px;">${data.name}</p>
                     <p class="name" style="font-size: 20px;">Username: <span id="info" style="color: gray; font-size: 18px; margin-top: 1px;">${data.username}</span></p>

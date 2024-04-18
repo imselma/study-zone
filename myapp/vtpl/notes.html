@@ -5,116 +5,182 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Study Zone</title>
-    <link rel="stylesheet" href="./assets/css/notes.css">
+    <link rel="stylesheet" href="./assets/css/navigation.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 </head>
 
 <body>
     <header>
-        <div class="navigation">
-            <nav class="navbar" role="navigation" aria-label="main navigation">
-                <div class="navbar-brand">
-                    <a class="navbar-item">
-                        <img src="./assets/img/gradCap.svg" width="80" height="20">
-                        <p class="app-name">Study Zone</p>
-                    </a>
-                    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
+        <nav class="navbar" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand">
+                <a class="navbar-item">
+                    <img src="./assets/img/gradCap.svg" width="80" height="20">
+                    <p class="app-name">Study Zone</p>
+                </a>
+
+                <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
                     data-target="navbarBasicExample">
                     <span aria-hidden="true"></span>
                     <span aria-hidden="true"></span>
                     <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
                 </a>
-                </div>
+            </div>
 
-                <div id="navbarBasicExample" class="navbar-menu">
-                    <div class="navbar-end">
-                        <div class="navbar-item">
-                            <div class="buttons">
-                                <a class="profile-button">
-                                    <img src="./assets/img/user-solidd.svg" width="80" height="20">
-                                </a>  
-                                <a id="navigation-button" class="button is-info is-responsive is-normal">
-                                    <strong>Log out</strong>
-                                </a>  
-                            </div>
+            <div id="navbarBasicExample" class="navbar-menu">
+                <div class="navbar-start">
+                    <a class="navbar-item" id="profile-button">
+                        Profile
+                    </a>
+                    <div class="navbar-item has-dropdown is-hoverable">
+                        <a class="navbar-link">
+                            Menu
+                        </a>
+                        <div class="navbar-dropdown">
+                            <a class="navbar-item" id="one">
+                                Dashboard
+                            </a>
+                            <a class="navbar-item" id="two">
+                                Tasks
+                            </a>
+                            <a class="navbar-item" id="three">
+                                Notes
+                            </a>
+                            <a class="navbar-item" id="four">
+                                Exams
+                            </a>
                         </div>
                     </div>
                 </div>
-            </nav>
-        </div>
+
+                <div class="navbar-end">
+                    <div class="navbar-item">
+                        <div class="buttons">
+                            <a class="button is-light" id="logout">
+                                Log Out
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
     </header>
     <main>
-        <div class="two-boxes">
-            <div class="box" id="boxId">
-                <a class="left-items1">
-                    <img src="./assets/img/gauge-high-solid.svg" width="80" height="20">
-                    <p class="name">Dashboard</p>
-                </a>
-                <a class="left-items2">
-                    <img src="./assets/img/list-check-solid.svg" width="80" height="20">
-                    <p class="name">Tasks</p>
-                </a>
-                <a class="left-items3">
-                    <img src="./assets/img/pen-to-square-solid.svg" width="80" height="20">
-                    <p class="name">Exams</p>
-                </a>
-                <a class="left-items4">
-                    <img src="./assets/img/note-sticky-solid.svg" width="80" height="20">
-                    <p class="name">Notes</p>
-                </a>
-            </div>
-            <div class="main">
-                <div class="content">
-                    <h4 class="title">Your Notes</h4>
-                    <button id="add" class="button is-success"> Add Note + </button>
-                </div>
-                <div id="note-container"></div>
-            </div>
+      <div class="order">
+        <div class="notes-title-div">
+          <p class="notes-title">NOTES</p>
+          <p id="currentDate"></p>
         </div>
+        <a class="js-modal-trigger button is-light" data-target="modal-js-example" id="add-note">
+          + add note
+        </a>
+        <div id="note-container"></div>
+      </div>
     </main>
+     <!--Modal-->
+  <div class="modal" id="notes-modal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Add Note</p>
+        <button class="delete" aria-label="close"></button>
+      </header>
+      <section class="modal-card-body">
+        <div class="field">
+          <p class="has-icons-right">
+            <input class="input" type="text" placeholder="Note definition:">
+          </p>
+        </div>
+        <div class="field">
+          <p class="control has-icons-right">
+            <input class="input" type="text" placeholder="Details:">
+          </p>
+        </div>
+      </section>
+      <footer class="modal-card-foot">
+        <div class="buttons">
+          <button class="button is-success" id="save-btn-note">Save changes</button>
+          <button class="button" id="cancel-btn">Cancel</button>
+        </div>
+      </footer>
+    </div>
+  </div>
 </body>
+<!--Script for open and close the hamburger menu-->
 <script>
-    function toggleMenu() {
-        $(".navbar-menu").toggleClass("is-active");
-    }
-
-    $(".navbar-burger").on("click", function () {
-        toggleMenu();
-    });
-
-
-    $(document).on("click", function (event) {
-        if (!$(event.target).closest(".navigation").length) {
-            $(".navbar-menu").removeClass("is-active");
+    $(document).ready(function() {
+      function toggleMenu() {
+        if ($(".navbar-menu").hasClass("is-active")) {
+          $(".navbar-menu").removeClass("is-active");
+        } else {
+          $(".navbar-burger").on("click", function () {
+            $(".navbar-menu").toggleClass("is-active");
+          });
         }
+      }
+  
+      toggleMenu();
     });
+  </script>
+
+  <!--Modal open-->
+<script>
+  $(document).ready(function () {
+    function openModal() {
+      $('#notes-modal').addClass('is-active');
+    }
+    $('.js-modal-trigger').click(function () {
+      openModal();
+    });
+  });
 </script>
+
+<!--Modal close-->
 <script>
-    $(".left-items1").on("click", () => {
-         window.location.hash = "dashboard";
-     });
- </script>
-<script>
-    $(".left-items2").on("click", () => {
-         window.location.hash = "tasks";
-     });
- </script>
- <script>
-    $(".left-items3").on("click", () => {
-         window.location.hash = "exams";
-     });
+  $(document).ready(function () {
+    function closeModal() {
+      $('.modal').removeClass('is-active');
+    }
+    $('.delete').click(function () {
+      closeModal();
+    });
+
+    $('#cancel-btn').click(function () {
+      closeModal();
+    });
+  });
 </script>
-<script>
-    $(".button.is-info.is-responsive.is-normal").on("click", () => {
-    window.location.hash = "home";
-});
- </script>
+  
+<!--Switch between pages-->
   <script>
-    $(".profile-button").on("click", () => {
-    window.location.hash = "userProfile";
-});
- </script>
- 
-  <script src="assets/js/notes.js"></script>
-  <script src="./assets/js/jquery.min.js"></script>
+    $(document).ready(function() {
+      $("#one").on("click", () => {
+        window.location.hash = "dashboard";
+      });
+  
+      $("#two").on("click", () => {
+        window.location.hash = "tasks";
+      });
+  
+      $("#four").on("click", () => {
+        window.location.hash = "exams";
+      });
+  
+      $("#three").on("click", () => {
+        window.location.hash = "notes";
+      });
+  
+      $("#logout").on("click", () => {
+        window.location.hash = "home";
+      });
+  
+      $("#profile-button").on("click", () => {
+        window.location.hash = "userProfile";
+      });
+    });
+  </script>
+  
+<script src="assets/js/notes.js"></script>
+<script src="./assets/js/jquery.min.js"></script>
+
 </html>

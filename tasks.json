@@ -13,5 +13,10 @@
       "name": "Milestone #3 - Deployment",
       "description": "Deploy application on hosting server",
       "deadline": "10:00 AM - 20 Mar 2024"
+    },
+    {
+      "name": "Complete SE Project Documentation",
+      "description": "Write documentation for the SE project",
+      "deadline": "5:00 PM - 25 Mar 2024"
     }
 ]

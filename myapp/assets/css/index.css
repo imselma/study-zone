@@ -1,4 +1,13 @@
-.navigation .navbar {
+#login-bttn, #signup-bttn {
+    background-color: #0272a1;
+    color: #eaeaea;
+}
+
+#nav-buttons {
+    margin-right: 20px;
+}
+
+/*.navigation .navbar {
     background-color: #0089c2;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   }
@@ -29,4 +38,4 @@
 .navbar-menu .navbar-end .navbar-item :hover {
     text-decoration: underline;
     background-color: inherit;
-}
+}*/

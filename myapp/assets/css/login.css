@@ -25,7 +25,7 @@
 
 .main-container2 .content .main-logo {
     margin: 0 auto; 
-    margin-top: 50px;
+    margin-top: initial;
     display: block; /*Ensuring the image is treated as a block-level element */
     width: 9.5vw;
 }
@@ -91,16 +91,27 @@
         font-size: 4vw; 
     }
 
-    .card2 {
-        width: 90%; 
-        height: 40%; 
-        margin-top: 5vw; 
+    .main-container2 .content .main-logo {
+        margin-top: 20vw;
     }
 
+    .card2 {
+        width: 90%;
+        height: 40%;
+        margin-top: 35vw;
+    }
+
+    .card-content {
+        margin-top: -25px;
+    }
+    .subcontent {
+        margin-top: 4.5vw;
+    }
+    
     .card2 .input {
         border-radius: 2vw; 
         padding-left: 4vw; 
-        margin-top: 3vw; 
+        margin-bottom: 20px; 
     }
 
     .card2 .control .button.is-success {

@@ -10,6 +10,11 @@
     {
       "title": "To-Do List",
       "content": "Buy groceries, finish homework, call mom"
+    },
+    {
+      "title": "DevOps Lecture #2",
+      "content": "Explore various AWS services. Understand their use cases, pricing models, and integration possibilities."
     }
+    
   ]
   
