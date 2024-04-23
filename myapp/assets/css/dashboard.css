@@ -44,3 +44,8 @@
     border-left: 1px solid #0272a1;
     border-right: 1px solid #0272a1;
 }
+
+#logout-dashboard{
+    background-color: #0272a1;
+    color: #eaeaea;
+  }

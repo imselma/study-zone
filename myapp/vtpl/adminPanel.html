@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en" id="html1">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Study Zone</title>
+  <!--<link rel="stylesheet" href="./assets/css/navigation.css">-->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+</head>
+
+<body>
+  <header>
+    <nav class="navbar-new" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand1">
+        <a class="navbar-item">
+          <img src="./assets/img/gradCap.svg" width="80" height="20">
+          <p class="app-name">Study Zone</p>
+        </a>
+
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+
+      <div id="navbarBasicExample" class="navbar-menu">
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <div class="buttons">
+              <a class="button is-light" id="logout">
+                Log Out
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <div class="container">
+      <h5 class="description">Add more study tips for users: </h5>
+      <a class="js-modal-trigger button is-light" data-target="modal-js-example" id="add-tips">
+        + Add more tips
+      </a>
+    </div>
+    <div id="tips-container"></div>
+  </main>
+  <!--Modal-->
+  <div class="modal" id="tips-modal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Add Study Tips</p>
+        <button class="delete" aria-label="close"></button>
+      </header>
+      <form id="tips-form">
+        <section class="modal-card-body">
+          <div class="modalfield">
+            <p class="control has-icons-right">
+            <p class="c-text">Select category:</p>
+            <div class="select">
+              <select name="category">
+                <option class="dropdown-i" data-value="" disabled selected></option>
+                <option class="dropdown-i" data-value="focus_more">Focus more</option>
+                <option class="dropdown-i" data-value="study_motivation">Study motivation</option>
+                <option class="dropdown-i" data-value="learn_faster">Learn faster</option>
+              </select>
+            </div>
+            </p>
+          </div>
+          <div class="modalfield">
+            <p class="has-icons-right">
+              <input class="input" type="text" name="title" placeholder="Title:">
+            </p>
+          </div>
+          <div class="modalfield">
+            <p class="has-icons-right">
+              <input class="input" type="text" name="details" placeholder="Details:">
+            </p>
+          </div>
+          <div class="modalfield">
+            <button type="submit" class="button is-success" id="save-btn-note">Save changes</button>
+          </div>
+        </section>
+      </form>
+    </div>
+  </div>
+
+  <script src="./assets/js/jquery.min.js"></script>
+
+  <script>
+    $(document).ready(function () {
+
+      $("#logout").on("click", () => {
+        window.location.hash = "home";
+      });
+
+      $("#profile-button").on("click", () => {
+        window.location.hash = "userProfile";
+      });
+    });
+  </script>
+
+  <!--Modal open-->
+  <script>
+    $(document).ready(function () {
+      function openModal() {
+        $('#tips-modal').addClass('is-active');
+      }
+      $('.js-modal-trigger').click(function () {
+        openModal();
+      });
+    });
+  </script>
+
+  <!--Modal close-->
+  <script>
+    $(document).ready(function () {
+      function closeModal() {
+        $('.modal').removeClass('is-active');
+      }
+      $('.delete').click(function () {
+        closeModal();
+        $('input[name="title"]').val('');
+        $('input[name="details"]').val('');
+        $('select[name="category"]').val('');
+        $("#selected-value").text('');
+      });
+    });
+  </script>
+
+  <!--Script for open and close the hamburger menu-->
+  <script>
+    $(document).ready(function () {
+      function toggleMenu() {
+        if ($(".navbar-menu").hasClass("is-active")) {
+          $(".navbar-menu").removeClass("is-active");
+        } else {
+          $(".navbar-burger").on("click", function () {
+            $(".navbar-menu").toggleClass("is-active");
+          });
+        }
+      }
+
+      toggleMenu();
+    });
+  </script>
+
+  <!--Switch between pages-->
+  <script>
+    $(document).ready(function () {
+      $("#profile-button").on("click", () => {
+        window.location.hash = "userProfile";
+      });
+    });
+  </script>
+
+
+
+  <!--Removing user_type from local storage-->
+  <script>
+
+    $(document).ready(function () {
+
+      $("#logout").on("click", () => {
+        localStorage.removeItem('user');
+      });
+    })
+  </script>
+  <!--validation script-->
+  <script src="./assets/js/jquery.validate.min.js"></script>
+  <script src="assets/js/studyTips.js"></script>
+</body>
+
+</html>

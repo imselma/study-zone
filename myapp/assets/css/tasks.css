@@ -1,3 +1,7 @@
+.navbar4 {
+    border-bottom: 2px solid #0272a1;
+}
+
 .tasks-title-div {
     display: flex;
     flex-direction: row;
@@ -13,7 +17,7 @@
     color: #eaeaea;
 }
 
-.order {
+.order2 {
     display: flex;
     flex-direction: column;
 }
@@ -41,3 +45,10 @@
     background-color: #0272a1;
     color: #eaeaea;  
 }
+
+
+#logout-tasks{
+    background-color: #0272a1;
+    color: #eaeaea;
+  }
+  

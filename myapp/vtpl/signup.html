@@ -1,62 +1,76 @@
 <body>
-    <main class="main-container2" id="container-main">
-        <div class="text-logo">
-            <div class="content">
-                <img class="main-logo" id="signup-logo" src="./assets/img/mainLogoo.png" width="80" height="20">
+  <main class="main-container2" id="container-main">
+    <div class="text-logo">
+      <div class="content">
+        <img class="main-logo" id="signup-logo" src="./assets/img/mainLogoo.png" width="80" height="20">
+      </div>
+      <div class="login-text">
+        <h3 id="login-header2">Sign Up and join our comunity.</h3>
+      </div>
+    </div>
+    <div class="card21">
+      <div class="card-content">
+        <div class="subcontent">
+          <form id="registration-form">
+            <div class="field">
+              <p class="has-icons-right">
+              <p id="element-t">First name::</p>
+              <input class="input" type="text" name="name" placeholder="First name:">
+              </p>
             </div>
-            <div class="login-text">
-                <h3 id="login">Sign Up and join our comunity.</h3>
+            <div class="field">
+              <p class="has-icons-right">
+              <p id="element-t">Last name:</p>
+              <input class="input" type="text" name="surname" placeholder="Last name:">
+              </p>
             </div>
-        </div>
-        <div class="card21">
-          <div class="card-content">
-            <div class="subcontent">
-              <div class="field">
-                <p class="has-icons-right">
-                  <input class="input" type="text" placeholder="Full name:">
-                </p>
-              </div>
-              <div class="field">
-                <p class="has-icons-right">
-                  <input class="input" type="text" placeholder="University:">
-                </p>
-              </div>
-              <div class="field">
-                <p class="has-icons-right">
-                  <input class="input" type="text" placeholder="Department:">
-                </p>
-              </div>
-              <div class="field">
-              <div class="field">
-                <p class="has-icons-right">
-                  <input class="input" type="text" placeholder="Username:">
-                </p>
-              </div>
-              <div class="field">
-                  <p class="has-icons-right">
-                    <input class="input" type="email" placeholder="Email: example@example.com">
-                  </p>
-                </div>
-                <div class="field">
-                  <p class="has-icons-right">
-                    <input class="input" type="password" placeholder="Password:">
-                  </p>
-                </div>
-                <div class="field">
-                  <p class="control">
-                    <button class="button is-success" id="signup-btn">
-                      Sign Up
-                    </button>
-                  </p>
-                </div>
+            <div class="field">
+              <p class="has-icons-right">
+              <p id="element-t">Field of study:</p>
+              <input class="input" type="text" name="department" placeholder="Field of study::">
+              </p>
             </div>
-          </div>
+            <div class="field">
+              <p class="has-icons-right">
+              <p id="element-t">University:</p>
+              <input class="input" type="text" name="university" placeholder="University:">
+              </p>
+            </div>
+            <div class="field">
+              <p class="has-icons-right">
+              <p id="element-t">Username:</p>
+              <input class="input" type="text" name="username" placeholder="Username:">
+              </p>
+            </div>
+            <div class="field">
+              <p class="has-icons-right">
+              <p id="element-t">Email:</p>
+              <input class="input" type="email" name="email" placeholder="Email: example@example.com">
+              </p>
+            </div>
+            <div class="field">
+              <p class="has-icons-right">
+              <p id="element-t">Password:</p>
+              <input class="input" type="password" name="password" placeholder="Password:">
+              </p>
+            </div>
+            <div class="field">
+              <p class="control">
+                <button class="button is-success">
+                  Sign Up
+                </button>
+              </p>
+            </div>
+          </form>
         </div>
-        </div>
-    </main>
-</body>
-<script>
+      </div>
+    </div>
+    </div>
+  </main>
+  <script src="assets/js/signup.js"></script>
+  <!--<script>
   $("#signup-btn").on("click", () => {
-       window.location.hash = "dashboard";
-   });
-</script>
+    window.location.hash = "dashboard";
+  });
+</script>-->
+</body>
