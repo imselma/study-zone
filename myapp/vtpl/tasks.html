@@ -5,14 +5,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Study Zone</title>
-  <link rel="stylesheet" href="./assets/css/navigation.css">
+  <!--<link rel="stylesheet" href="./assets/css/navigation.css">-->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 </head>
 
 <body>
   <header>
-    <nav class="navbar" role="navigation" aria-label="main navigation">
-      <div class="navbar-brand">
+    <nav class="navbar-new" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand1">
         <a class="navbar-item">
           <img src="./assets/img/gradCap.svg" width="80" height="20">
           <p class="app-name">Study Zone</p>
@@ -28,7 +28,7 @@
 
       <div id="navbarBasicExample" class="navbar-menu">
         <div class="navbar-start">
-          <a class="navbar-item" id="profile-button">
+          <a class="navbar-item" id="profile-button-tasks">
             Profile
           </a>
           <div class="navbar-item has-dropdown is-hoverable">
@@ -36,16 +36,16 @@
               Menu
             </a>
             <div class="navbar-dropdown">
-              <a class="navbar-item" id="one">
+              <a class="navbar-item" id="one-tasks">
                 Dashboard
               </a>
-              <a class="navbar-item" id="two">
+              <a class="navbar-item" id="two-tasks">
                 Tasks
               </a>
-              <a class="navbar-item" id="three">
+              <a class="navbar-item" id="three-tasks">
                 Notes
               </a>
-              <a class="navbar-item" id="four">
+              <a class="navbar-item" id="four-tasks">
                 Exams
               </a>
             </div>
@@ -55,7 +55,7 @@
         <div class="navbar-end">
           <div class="navbar-item">
             <div class="buttons">
-              <a class="button is-light" id="logout">
+              <a class="button is-light" id="logout-tasks">
                 Log Out
               </a>
             </div>
@@ -65,7 +65,7 @@
     </nav>
   </header>
   <main>
-    <div class="order">
+    <div class="order2">
       <div class="tasks-title-div">
         <p class="tasks-title">TASKS</p>
         <p id="currentDate"></p>
@@ -85,17 +85,17 @@
         <button class="delete" aria-label="close"></button>
       </header>
       <section class="modal-card-body">
-        <div class="field">
+        <div class="modalfield">
           <p class="has-icons-right">
             <input class="input" type="text" placeholder="Task definition:">
           </p>
         </div>
-        <div class="field">
+        <div class="modalfield">
           <p class="control has-icons-right">
             <input class="input" type="text" placeholder="Details:">
           </p>
         </div>
-        <div class="field">
+        <div class="modalfield">
           <p class="control has-icons-right">
             <input class="input" type="text" placeholder="Deadline:">
           </p>
@@ -109,7 +109,10 @@
       </footer>
     </div>
   </div>
-</body>
+
+  
+<script src="assets/js/tasks.js"></script>
+<script src="./assets/js/jquery.min.js"></script>
 
 <!--Script for open and close the hamburger menu-->
 <script>
@@ -159,33 +162,40 @@
 <!--Switching between pages-->
 <script>
   $(document).ready(function () {
-    $("#one").on("click", () => {
+    $("#one-tasks").on("click", () => {
       window.location.hash = "dashboard";
     });
 
-    $("#two").on("click", () => {
+    $("#two-tasks").on("click", () => {
       window.location.hash = "tasks";
     });
 
-    $("#four").on("click", () => {
+    $("#four-tasks").on("click", () => {
       window.location.hash = "exams";
     });
 
-    $("#three").on("click", () => {
+    $("#three-tasks").on("click", () => {
       window.location.hash = "notes";
     });
 
-    $("#logout").on("click", () => {
+    $("#logout-tasks").on("click", () => {
       window.location.hash = "home";
     });
 
-    $("#profile-button").on("click", () => {
+    $("#profile-button-tasks").on("click", () => {
       window.location.hash = "userProfile";
     });
   });
 </script>
 
-<script src="assets/js/tasks.js"></script>
-<script src="./assets/js/jquery.min.js"></script>
+<!--Removing user_type from local storage-->
+<script>
+  $(document).ready(function(){
+    $("#logout").on("click", () => {
+      localStorage.removeItem('user');
+    });
+  })
+</script>
+</body>
 
 </html>

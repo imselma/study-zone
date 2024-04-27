@@ -5,15 +5,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Study Zone</title>
-  <link rel="stylesheet" href="./assets/css/navigation.css">
+  <link rel="stylesheet" href="./assets/css/newnavigation.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-  <!--<link rel="stylesheet" href="./assets/css/dashboard.css">-->
 </head>
 
 <body>
   <header>
-    <nav class="navbar" role="navigation" aria-label="main navigation">
-      <div class="navbar-brand">
+    <nav class="navbar-new" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand1">
         <a class="navbar-item">
           <img src="./assets/img/gradCap.svg" width="80" height="20">
           <p class="app-name">Study Zone</p>
@@ -29,7 +28,7 @@
 
       <div id="navbarBasicExample" class="navbar-menu">
         <div class="navbar-start">
-          <a class="navbar-item" id="profile-button">
+          <a class="navbar-item" id="profile-button-dashboard">
             Profile
           </a>
           <div class="navbar-item has-dropdown is-hoverable">
@@ -37,16 +36,16 @@
               Menu
             </a>
             <div class="navbar-dropdown">
-              <a class="navbar-item" id="one">
+              <a class="navbar-item" id="one-dashboard">
                 Dashboard
               </a>
-              <a class="navbar-item" id="two">
+              <a class="navbar-item" id="two-dashboard">
                 Tasks
               </a>
-              <a class="navbar-item" id="three">
+              <a class="navbar-item" id="three-dashboard">
                 Notes
               </a>
-              <a class="navbar-item" id="four">
+              <a class="navbar-item" id="four-dashboard">
                 Exams
               </a>
             </div>
@@ -55,7 +54,7 @@
         <div class="navbar-end">
           <div class="navbar-item">
             <div class="buttons">
-              <a class="button is-light" id="logout">
+              <a class="button is-light" id="logout-dashboard">
                 Log Out
               </a>
             </div>
@@ -86,70 +85,68 @@
       </div>
     </div>
   </main>
-</body>
 
-<!--Script for open and close the hamburger menu-->
-<script>
-  $(document).ready(function() {
-    function toggleMenu() {
-      if ($(".navbar-menu").hasClass("is-active")) {
-        $(".navbar-menu").removeClass("is-active");
-      } else {
-        $(".navbar-burger").on("click", function () {
-          $(".navbar-menu").toggleClass("is-active");
-        });
+
+
+  <script src="assets/js/notes.js"></script>
+  <script src="assets/js/date.js"></script>
+  <script src="assets/js/tasks.js"></script>
+  <script src="assets/js/exams.js"></script>
+  <script src="./assets/js/jquery.min.js"></script>
+
+  <!--Script for open and close the hamburger menu-->
+  <script>
+    $(document).ready(function () {
+      function toggleMenu() {
+        if ($(".navbar-menu").hasClass("is-active")) {
+          $(".navbar-menu").removeClass("is-active");
+        } else {
+          $(".navbar-burger").on("click", function () {
+            $(".navbar-menu").toggleClass("is-active");
+          });
+        }
       }
-    }
 
-    toggleMenu();
-  });
-</script>
+      toggleMenu();
+    });
+  </script>
 
-<!--Script for open and close the dropdown menu-->
-<!--<script>
-  $(document).ready(function() {
-    function toggleDropdown() {
-      $(".navbar-item.has-dropdown.is-hoverable").on("click", function() {
-        $(".navbar-dropdown").toggleClass("is-active");
+  <script>
+    $(document).ready(function () {
+      $("#one-dashboard").on("click", () => {
+        window.location.hash = "dashboard";
       });
-    }
-    
-    toggleDropdown();
-  });
-</script>-->
 
-<script>
-  $(document).ready(function() {
-    $("#one").on("click", () => {
-      window.location.hash = "dashboard";
+      $("#two-dashboard").on("click", () => {
+        window.location.hash = "tasks";
+      });
+
+      $("#four-dashboard").on("click", () => {
+        window.location.hash = "exams";
+      });
+
+      $("#three-dashboard").on("click", () => {
+        window.location.hash = "notes";
+      });
+
+      $("#logout-dashboard").on("click", () => {
+        window.location.hash = "home";
+      });
+
+      $("#profile-button-dashboard").on("click", () => {
+        window.location.hash = "userProfile";
+      });
     });
+  </script>
 
-    $("#two").on("click", () => {
-      window.location.hash = "tasks";
-    });
-
-    $("#four").on("click", () => {
-      window.location.hash = "exams";
-    });
-
-    $("#three").on("click", () => {
-      window.location.hash = "notes";
-    });
-
-    $("#logout").on("click", () => {
-      window.location.hash = "home";
-    });
-
-    $("#profile-button").on("click", () => {
-      window.location.hash = "userProfile";
-    });
-  });
-</script>
-
-<script src="assets/js/notes.js"></script>
-<script src="assets/js/date.js"></script>
-<script src="assets/js/tasks.js"></script>
-<script src="assets/js/exams.js"></script>
-<script src="./assets/js/jquery.min.js"></script>
+  <!--Removing user_type from local storage-->
+  <script>
+    $(document).ready(function () {
+      $("#logout").on("click", () => {
+        localStorage.removeItem('user');
+      });
+    })
+  </script>
+</body>
 
 </html>

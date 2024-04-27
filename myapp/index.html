@@ -5,19 +5,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Study Zone</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <!-- CSS files -->
     <link rel="stylesheet" href="./assets/css/navigation.css">
+    <link rel="stylesheet" href="./assets/css/newnavigation.css">
     <link rel="stylesheet" href="./assets/css/dashboard.css">
     <link rel="stylesheet" href="./assets/css/exams.css">
     <link rel="stylesheet" href="./assets/css/tasks.css">
     <link rel="stylesheet" href="./assets/css/notes.css">
     <link rel="stylesheet" href="./assets/css/home.css">
-    <link rel="stylesheet" href="./assets/css/features.css">
+    <link rel="stylesheet" href="./assets/css/studyTips.css">
     <link rel="stylesheet" href="./assets/css/signup.css">
     <link rel="stylesheet" href="./assets/css/login.css">
     <link rel="stylesheet" href="./assets/css/userProfile.css">
     <link rel="stylesheet" href="./assets/css/index.css">
+    <link rel="stylesheet" href="./assets/css/adminPanel.css">
     <!-- SPApp CSS -->
     <link rel="stylesheet" href="./assets/css/jQuerySPApp.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
@@ -45,8 +46,8 @@
                         <a href="#home" class="navbar-item">
                             Home
                         </a>
-                        <a href="#features" class="navbar-item">
-                            Features
+                        <a href="#studyTips" class="navbar-item">
+                            Study Tips
                         </a>
                         <div class="buttons" id="nav-buttons">
                             <a href="#login" class="button is-light" id="login-bttn">
@@ -66,20 +67,22 @@
         <section id="notes" data-load="notes.html"></section>
         <section id="exams" data-load="exams.html"></section>
         <section id="tasks" data-load="tasks.html"></section>
+        <section id="adminPanel" data-load="adminPanel.html"></section>
         <section id="dashboard" data-load="dashboard.html"></section>
         <section id="signup" data-load="signup.html"></section>
         <section id="login" data-load="login.html"></section>
-        <section id="features" data-load="features.html"></section>
+        <section id="studyTips" data-load="studyTips.html"></section>
         <section id="home" data-load="home.html"></section>
     </main>
 
-    <footer></footer>
+       <!--JQuery-->
+       <script src="./assets/js/jquery.min.js"></script>
+       <!-- JQuery for SPApp -->
+       <script src="./assets/js/jQuerySPApp.js"></script>
+       <!--validation script-->
+       <script src="./assets/js/jquery.validate.min.js"></script>
 
-    <script src="./assets/js/jquery.min.js"></script>
-    <!-- JQuery for SPApp -->
-    <script src="./assets/js/jQuerySPApp.js"></script>
-
-   <script>
+       <script>
         function toggleMenu() {
             $(".navbar-menu").toggleClass("is-active");
         }
@@ -97,7 +100,7 @@
     </script>
     <script>
         function hideNavigation() {
-            if (["#dashboard", "#exams", "#notes", "#tasks", "#userProfile"].includes(window.location.hash)) {
+            if (["#dashboard", "#exams", "#notes", "#tasks", "#userProfile", "#adminPanel"].includes(window.location.hash)) {
                 $(".navbar").hide();
             } else {
                 $(".navbar").show();
@@ -123,10 +126,10 @@
             app.route({ view: 'exams', load: 'exams.html' });
             app.route({ view: 'notes', load: 'notes.html' });
             app.route({ view: 'userProfile', load: 'userProfile.html' });
+            app.route({ view: 'adminPanel', load: 'adminPanel.html' });
 
             app.run();
         });
-
     </script>
 </body>
 
