@@ -1,6 +1,25 @@
 <?php
 
-//Adding the tip
+/**
+     * @OA\Post(
+     *      path="/addTask",
+     *      tags={"tasks"},
+     *      summary="Add task data to the database",
+     *      @OA\Response(
+     *           response=200,
+     *           description="Study task data, or exception if task is not added properly"
+     *      ),
+     *      @OA\RequestBody(
+     *          description="task data payload",
+     *          @OA\JsonContent(
+     *              required={"title","details","deadline"},
+     *              @OA\Property(property="title", type="string", example="Some title", description="Title"),
+     *              @OA\Property(property="details", type="string", example="Some details", description="Details"),
+     *              @OA\Property(property="deadline", type="string", example="Some deadline", description="Deadline")
+     *          )
+     *      )
+     * )
+     */
 Flight::route("POST /addTask", function() {
    
    $payload = Flight::request()->data->getData();  //Getting data from the request payload.
@@ -16,7 +35,17 @@ Flight::route("POST /addTask", function() {
    }
 });
 
-// Get all tasks
+/**
+     * @OA\Get(
+     *      path="/getAllTasks",
+     *      tags={"tasks"},
+     *      summary="Get all tasks",
+     *      @OA\Response(
+     *           response=200,
+     *           description="Array of all tasks in the database"
+     *      )
+     * )
+     */
 Flight::route("GET /getAllTasks", function(){
 
    $tasksService = new TasksService();
@@ -31,7 +60,18 @@ Flight::route("GET /getAllTasks", function(){
    }
 });
 
-// Get task by id
+/**
+     * @OA\Get(
+     *      path="/getTaskById/{id}",
+     *      tags={"tasks"},
+     *      summary="Get task by id",
+     *      @OA\Response(
+     *           response=200,
+     *           description="Task data, or false if task does not exist"
+     *      ),
+     *      @OA\Parameter(@OA\Schema(type="number"), in="query", name="id", example="1", description="Task ID")
+     * )
+     */
 Flight::route("GET /getTaskById/@id", function($id){
 
    $tasksService = new TasksService();
@@ -45,7 +85,29 @@ Flight::route("GET /getTaskById/@id", function($id){
    }
 });
 
-//Edit task
+/**
+ * @OA\Put(
+ *     path="/editTask/{id}",
+ *     tags={"tasks"},
+ *     summary="Edit task data",
+ *     @OA\Parameter(
+ *         name="id",
+ *         in="path",
+ *         required=true,
+ *         description="Task ID",
+ *         @OA\Schema(type="integer", example=1)
+ *     ),
+ *     @OA\RequestBody(
+ *         required=true,
+ *         description="Request body containing current data",
+ *         @OA\JsonContent(
+ *              @OA\Property(property="title", type="string", example="Some title", description="New title"),
+ *              @OA\Property(property="details", type="string", example="Some details", description="New details"),
+ *              @OA\Property(property="deadline", type="string", example="Some deadline", description="New deadline")
+ *         )
+ *     )
+ * )
+ */
 Flight::route("PUT /editTask/@id", function($id){
 
    $payload = Flight::request()->data->getData();
@@ -60,7 +122,18 @@ Flight::route("PUT /editTask/@id", function($id){
    }
 });
 
-//Delete task
+ /**
+     * @OA\Delete(
+     *      path="/deleteTask/{id}",
+     *      tags={"tasks"},
+     *      summary="Delete task by id",
+     *      @OA\Response(
+     *           response=200,
+     *           description="Deleted task data or 500 status code exception otherwise"
+     *      ),
+     *      @OA\Parameter(@OA\Schema(type="number"), in="path", name="id", example="1", description="Task ID")
+     * )
+     */
 Flight::route("DELETE /deleteTask/@id", function($id){
 
    Flight::tasks_service()->delete($id);

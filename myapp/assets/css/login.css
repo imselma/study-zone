@@ -91,11 +91,12 @@
     align-items:flex-start; 
 }
 
-#element-t {
+#element-t, #element-p{
     margin-right: 10px; 
     color: #0089c2;
     font-weight: bold;
 }
+
 
 /* Media queries for smaller screen sizes */
 @media screen and (max-width: 768px) {

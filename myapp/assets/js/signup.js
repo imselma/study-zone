@@ -79,6 +79,13 @@ var UserService = {
             contentType: "application/json",
             dataType: "json",
             success: function(result) {
+                $("input[name='name']").val(''),
+                $("input[name='surname']").val(''),
+                $("input[name='username']").val(''),
+                $("input[name='email']").val(''),
+                $("input[name='password']").val(''),
+                $("input[name='university']").val(''),
+                $("input[name='department']").val(''),
                 window.location.hash = '#login';
                 alert("Registration successfull!");
             },

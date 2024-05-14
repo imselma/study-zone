@@ -17,4 +17,6 @@ class Config {
         return 'studyzone';
     }
 }
+// JWT Secret
+define('JWT_SECRET', 'hgY=&*54#T+kTe,selma8zT=7L-3z4tV/&9');
 ?>

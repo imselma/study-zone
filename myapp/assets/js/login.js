@@ -44,21 +44,25 @@ var UserService = {
             dataType: "json",
             success: function(result) {
 
-                if(result.user){
-                    localStorage.setItem('user', JSON.stringify(result.user['user_type']));
+                $("input[name='email']").val(''),
+                $("input[name='password']").val('')
+                localStorage.setItem('user', JSON.stringify(result.user['user_type']));
+                localStorage.setItem('users_id', JSON.stringify(result.user['id']));
+                if(result && result.user){
+                    alert("Login successfull!");
                     if(result.user['user_type'] === 'admin'){
                         window.location.hash = '#adminPanel';
                     }
                     else{
                         window.location.hash = '#dashboard';
                     }
-                    alert("Login successfull!");
-                }else {
-                    alert("Login failed! Wrong credentials or the user doesn't exist!");
                 }
             },
-            error: function(XMLHttpRequest, textStatus, errorThrown) {
-                alert("Login failed: " + XMLHttpRequest.responseText);
+            error: function(result) {
+                  //alert("Login failed: " + XMLHttpRequest.responseText);
+                  if(!result){
+                    alert("Login failed!");                    
+            }
             }
         });
     }
