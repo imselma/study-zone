@@ -1,6 +1,24 @@
 <?php
 
-//Adding the note
+/**
+     * @OA\Post(
+     *      path="/addNote",
+     *      tags={"notes"},
+     *      summary="Add note data to the database",
+     *      @OA\Response(
+     *           response=200,
+     *           description="Note data, or exception if note is not added properly"
+     *      ),
+     *      @OA\RequestBody(
+     *          description="note data payload",
+     *          @OA\JsonContent(
+     *              required={"title","details"},
+     *              @OA\Property(property="title", type="string", example="Some title", description="Title"),
+     *              @OA\Property(property="details", type="string", example="Some details", description="Details")
+     *          )
+     *      )
+     * )
+     */
 Flight::route("POST /addNote", function() {
    
    $payload = Flight::request()->data->getData();  //Getting data from the request payload.
@@ -17,7 +35,17 @@ Flight::route("POST /addNote", function() {
    }
 });
 
-// Get all notes
+/**
+     * @OA\Get(
+     *      path="/getAllNotes",
+     *      tags={"notes"},
+     *      summary="Get all notes",
+     *      @OA\Response(
+     *           response=200,
+     *           description="Array of all notes in the database"
+     *      )
+     * )
+     */
 Flight::route("GET /getAllNotes", function(){
 
    $notesService = new NotesService();
@@ -32,7 +60,18 @@ Flight::route("GET /getAllNotes", function(){
    }
 });
 
-// Get notes by id
+/**
+     * @OA\Get(
+     *      path="/getNoteById/{id}",
+     *      tags={"notes"},
+     *      summary="Get note by id",
+     *      @OA\Response(
+     *           response=200,
+     *           description="Note data, or false if note does not exist"
+     *      ),
+     *      @OA\Parameter(@OA\Schema(type="number"), in="query", name="id", example="1", description="Note ID")
+     * )
+     */
 Flight::route("GET /getNoteById/@id", function($id){
 
     $notesService = new NotesService();
@@ -46,7 +85,28 @@ Flight::route("GET /getNoteById/@id", function($id){
     }
  });
 
- //Edit note
+/**
+ * @OA\Put(
+ *     path="/editNote/{id}",
+ *     tags={"notes"},
+ *     summary="Edit note data",
+ *     @OA\Parameter(
+ *         name="id",
+ *         in="path",
+ *         required=true,
+ *         description="Note ID",
+ *         @OA\Schema(type="integer", example=1)
+ *     ),
+ *     @OA\RequestBody(
+ *         required=true,
+ *         description="Request body containing current data",
+ *         @OA\JsonContent(
+ *              @OA\Property(property="title", type="string", example="Some title", description="New title"),
+ *              @OA\Property(property="details", type="string", example="Some details", description="New details")
+ *         )
+ *     )
+ * )
+ */
 Flight::route("PUT /editNote/@id", function($id){
 
     $payload = Flight::request()->data->getData();
@@ -61,7 +121,18 @@ Flight::route("PUT /editNote/@id", function($id){
     }
  });
 
- //Delete note
+ /**
+     * @OA\Delete(
+     *      path="/deleteNote/{id}",
+     *      tags={"tasks"},
+     *      summary="Delete note by id",
+     *      @OA\Response(
+     *           response=200,
+     *           description="Deleted note data or 500 status code exception otherwise"
+     *      ),
+     *      @OA\Parameter(@OA\Schema(type="number"), in="path", name="id", example="1", description="Task ID")
+     * )
+     */
 Flight::route("DELETE /deleteNote/@id", function($id){
 
     Flight::notes_service()->delete($id);

@@ -77,41 +77,41 @@
     </div>
   </main>
   <!--Modal-->
-  <div class="modal">
-    <div class="modal-background"></div>
+  <div class="modal" id="addTaskModal">
+    <div class="modal-background" style="background-color: rgba(10, 10, 10, 0.223);"></div>
     <div class="modal-card">
       <header class="modal-card-head">
         <p class="modal-card-title">Add Task</p>
         <button class="delete" aria-label="close"></button>
       </header>
-      <section class="modal-card-body">
-        <div class="modalfield">
-          <p class="has-icons-right">
-            <input class="input" type="text" placeholder="Task definition:">
-          </p>
-        </div>
-        <div class="modalfield">
-          <p class="control has-icons-right">
-            <input class="input" type="text" placeholder="Details:">
-          </p>
-        </div>
-        <div class="modalfield">
-          <p class="control has-icons-right">
-            <input class="input" type="text" placeholder="Deadline:">
-          </p>
-        </div>
-      </section>
-      <footer class="modal-card-foot">
-        <div class="buttons">
-          <button class="button is-success" id="save-btn-task">Save changes</button>
-          <button class="button" id="cancel-btn">Cancel</button>
-        </div>
-      </footer>
+      <form id="addTasks-form">
+        <section class="modal-card-body">
+          <div class="modalfield">
+            <p class="has-icons-right">
+              <input class="input" type="text" name="definition" placeholder="Task definition:">
+            </p>
+          </div>
+          <div class="modalfield">
+            <p class="control has-icons-right">
+              <input class="input" type="text" name="details" placeholder="Details:">
+            </p>
+          </div>
+          <div class="modalfield">
+            <p class="control has-icons-right">
+              <input class="input" type="text" name="deadline" placeholder="Deadline:">
+            </p>
+          </div>
+        </section>
+        <footer class="modal-card-foot">
+          <div class="buttons">
+            <button type="submit" class="button is-success" id="save-btn-task">Save changes</button>
+            <button type="button" class="button" id="cancel-btn1">Cancel</button>
+          </div>
+        </footer>
+    </form>
     </div>
   </div>
 
-  
-<script src="assets/js/tasks.js"></script>
 <script src="./assets/js/jquery.min.js"></script>
 
 <!--Script for open and close the hamburger menu-->
@@ -153,7 +153,7 @@
       closeModal();
     });
 
-    $('#cancel-btn').click(function () {
+    $('#cancel-btn1').click(function () {
       closeModal();
     });
   });
@@ -196,6 +196,9 @@
     });
   })
 </script>
+
+<script src="./assets/js/jquery.validate.min.js"></script>
+<script src="assets/js/tasks.js"></script>
 </body>
 
 </html>

@@ -6,10 +6,9 @@ require "./services/TipsService.php";
 require "./services/TasksService.php";
 require "./services/NotesService.php";
 require "./services/ExamsService.php";
-// Define a route that handles requests to the root URL
-Flight::route('/', function () {
-echo 'hello world!';
-});
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
+
 
 Flight::register('base_services', "BaseService");
 Flight::register('user_service', "UserService");
@@ -24,7 +23,6 @@ require './routes/TipsRoutes.php';
 require './routes/TasksRoutes.php';
 require './routes/NotesRoutes.php';
 require './routes/ExamsRoutes.php';
-
 
 Flight::start();
 ?>
