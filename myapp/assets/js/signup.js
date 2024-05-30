@@ -78,6 +78,11 @@ var UserService = {
             data: JSON.stringify(entity),
             contentType: "application/json",
             dataType: "json",
+            beforeSend: function(xhr) {
+                if(localStorage.getItem('current_user')){
+                  xhr.setRequestHeader("Authentication", localStorage.getItem('token'));
+                }
+              },
             success: function(result) {
                 $("input[name='name']").val(''),
                 $("input[name='surname']").val(''),

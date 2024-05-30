@@ -28,38 +28,39 @@
     <header>
         <nav class="navbar" role="navigation" aria-label="main navigation">
             <div class="navbar-brand">
-              <a class="navbar-item">
-                <img src="./assets/img/gradCap.svg" width="80" height="20">
-                <p class="app-name">Study Zone</p>
-              </a>
-          
-              <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-              </a>
+                <a class="navbar-item">
+                    <img src="./assets/img/gradCap.svg" width="80" height="20">
+                    <p class="app-name">Study Zone</p>
+                </a>
+
+                <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
+                    data-target="navbarBasicExample">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a>
             </div>
 
-                <div id="navbarBasicExample" class="navbar-menu">
-                    <div class="navbar-end">
-                        <a href="#home" class="navbar-item">
-                            Home
+            <div id="navbarBasicExample" class="navbar-menu">
+                <div class="navbar-end">
+                    <a href="#home" class="navbar-item">
+                        Home
+                    </a>
+                    <a href="#studyTips" class="navbar-item">
+                        Study Tips
+                    </a>
+                    <div class="buttons" id="nav-buttons">
+                        <a href="#login" class="button is-light" id="login-bttn">
+                            Login
                         </a>
-                        <a href="#studyTips" class="navbar-item">
-                            Study Tips
+                        <a href="#signup" class="button is-light" id="signup-bttn">
+                            Signup
                         </a>
-                        <div class="buttons" id="nav-buttons">
-                            <a href="#login" class="button is-light" id="login-bttn">
-                              Login
-                            </a>
-                            <a href="#signup" class="button is-light" id="signup-bttn">
-                              Signup
-                            </a>
-                        </div>
                     </div>
                 </div>
-            </nav>
+            </div>
+        </nav>
     </header>
 
     <main id="jqueryspapp" role="main">
@@ -75,14 +76,14 @@
         <section id="home" data-load="home.html"></section>
     </main>
 
-       <!--JQuery-->
-       <script src="./assets/js/jquery.min.js"></script>
-       <!-- JQuery for SPApp -->
-       <script src="./assets/js/jQuerySPApp.js"></script>
-       <!--validation script-->
-       <script src="./assets/js/jquery.validate.min.js"></script>
+    <!--JQuery-->
+    <script src="./assets/js/jquery.min.js"></script>
+    <!-- JQuery for SPApp -->
+    <script src="./assets/js/jQuerySPApp.js"></script>
+    <!--validation script-->
+    <script src="./assets/js/jquery.validate.min.js"></script>
 
-       <script>
+    <script>
         function toggleMenu() {
             $(".navbar-menu").toggleClass("is-active");
         }
@@ -92,11 +93,11 @@
         });
 
 
-       /* $(document).on("click", function (event) {
-            if (!$(event.target).closest(".navigation").length) {
-                $(".navbar-menu").removeClass("is-active");
-            }
-        });*/
+        /* $(document).on("click", function (event) {
+             if (!$(event.target).closest(".navigation").length) {
+                 $(".navbar-menu").removeClass("is-active");
+             }
+         });*/
     </script>
     <script>
         function hideNavigation() {
@@ -112,23 +113,69 @@
         });
     </script>
 
-    <script type="text/javascript">
+    <script>
+        function isAuthenticated() {
+            return localStorage.getItem('token') !== null;
+        }
+
+        function isAdmin(){
+            return localStorage.getItem('user') === 'admin';
+        }
+
+        function redirectIfNotAuthenticated(view) {
+            if (!isAuthenticated() && !["home", "studyTips", "signup", "login"].includes(view)) {
+                window.location.hash = "login";
+            }
+        }
+
+        function redirectIfNotAdmin(view) {
+            if (!isAdmin() && ["adminPanel"].includes(view)) {
+                localStorage.removeItem('current_user');
+                localStorage.removeItem('user');
+                localStorage.removeItem('users_id');
+                localStorage.removeItem('token');
+                window.location.hash = "login";
+            }else if(isAdmin() && !["adminPanel"].includes(view)){
+                localStorage.removeItem('current_user');
+                localStorage.removeItem('user');
+                localStorage.removeItem('users_id');
+                localStorage.removeItem('token');
+                window.location.hash = "login";
+            }
+        }
+
         $(document).ready(function () {
             var app = $.jQuerySPApp({ defaultView: "home" }); //initialize page
 
-            //define routes
-            app.route({ view: 'home', load: 'home.html' });
-            app.route({ view: 'features', load: 'features.html' });
-            app.route({ view: 'signup', load: 'signup.html' });
-            app.route({ view: 'login', load: 'login.html' });
-            app.route({ view: 'dashboard', load: 'dashboard.html' });
-            app.route({ view: 'tasks', load: 'tasks.html' });
-            app.route({ view: 'exams', load: 'exams.html' });
-            app.route({ view: 'notes', load: 'notes.html' });
-            app.route({ view: 'userProfile', load: 'userProfile.html' });
-            app.route({ view: 'adminPanel', load: 'adminPanel.html' });
+            // Define routes
+            if (isAuthenticated()) {
+                app.route({ view: 'home', load: 'home.html' });
+                app.route({ view: 'studyTips', load: 'studyTips.html' });
+                app.route({ view: 'dashboard', load: 'dashboard.html' });
+                app.route({ view: 'tasks', load: 'tasks.html' });
+                app.route({ view: 'exams', load: 'exams.html' });
+                app.route({ view: 'notes', load: 'notes.html' });
+                app.route({ view: 'userProfile', load: 'userProfile.html' });
+                app.route({ view: 'adminPanel', load: 'adminPanel.html' });
+            } else {
+                app.route({ view: 'home', load: 'home.html' });
+                app.route({ view: 'studyTips', load: 'studyTips.html' });
+                app.route({ view: 'signup', load: 'signup.html' });
+                app.route({ view: 'login', load: 'login.html' });
+            }
 
+            // Run the app
             app.run();
+
+            // Check on hash change
+            $(window).on("hashchange", function () {
+                var view = window.location.hash.substring(1);
+                redirectIfNotAuthenticated(view);
+                redirectIfNotAdmin(view);
+            });
+
+            redirectIfNotAuthenticated(window.location.hash.substring(1));
+            redirectIfNotAdmin(window.location.hash.substring(1));
         });
     </script>
 </body>

@@ -1,37 +1,51 @@
 <?php
 
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 /**
      * @OA\Post(
      *      path="/addTip",
      *      tags={"tips"},
-     *      summary="Add study tip data to the database",
+     *      summary="Add study tip data to the database.",
+     *      security={
+     *         {"ApiKey": {}}
+     *      },
      *      @OA\Response(
      *           response=200,
-     *           description="Study tip data, or exception if study tip is not added properly"
+     *           description="Study tip data, or exception if study tip is not added properly."
      *      ),
      *      @OA\RequestBody(
      *          description="Tip data payload",
      *          @OA\JsonContent(
      *              required={"category","details","title"},
-     *              @OA\Property(property="category", type="string", example="Some category", description="Category"),
-     *              @OA\Property(property="details", type="string", example="Some details", description="Details"),
-     *              @OA\Property(property="title", type="string", example="Some title", description="Title")
+     *              @OA\Property(property="category", type="string", example="Learn faster", description="Category"),
+     *              @OA\Property(property="details", type="string", example="Chunk your learning into bite-sized pieces. Master one concept before moving on. Small steps lead to big gains", description="Details"),
+     *              @OA\Property(property="title", type="string", example="Learn piece by piece", description="Title")
      *          )
      *      )
      * )
      */
 Flight::route("POST /addTip", function() {
-   
-   $payload = Flight::request()->data->getData();  //Getting data from the request payload.
-   //Making an instance of Userservice
-   $tipsService = new TipsService();
-   //Add tip to db
-   $result = $tipsService->addTip($payload);
 
-   if($result) {
-      Flight::json(['message' => 'Study tip added successfully!']);
-   } else{
-      Fight::json(['message' => 'Failed to add a study tip!']);
+   try{
+      $token = Flight::request()->getHeader("Authentication");
+      if(!$token){
+         Flight::halt(401, "Missing authentication header!");
+      }
+      $decoded_token = JWT::decode($token, new Key(JWT_SECRET, 'HS256')); //If I add something it would fail because I am trying to decode jwt token signed with one secret, with another
+
+      $payload = Flight::request()->data->getData(); 
+      $tipsService = new TipsService();
+      $result = $tipsService->addTip($payload);
+
+      Flight::json([
+         'jwt_decoded' => $decoded_token,
+         'user' => $decoded_token->user,
+         'result' => $result
+      ]);
+   
+   }catch(\Exception $e){
+      Flight::halt(401, $e->getMessage()); //401 -> means unauthenticated user
    }
 });
 
@@ -39,49 +53,57 @@ Flight::route("POST /addTip", function() {
      * @OA\Get(
      *      path="/getAllTips",
      *      tags={"tips"},
-     *      summary="Get all tips",
+     *      summary="Get all tips.",
      *      @OA\Response(
      *           response=200,
-     *           description="Array of all tips in the database"
+     *           description="Array of all tips in the database."
      *      )
      * )
      */
 Flight::route("GET /getAllTips", function(){
 
-   $tipsService = new TipsService();
+      $tipsService = new TipsService();
+      $result = $tipsService->get_all();
 
-   //get_all() is inherited from BaseService. TipsService extends BaseService, which contains the get_all() method, you don't need to define it again in TipsService again like the POST method where you are sending some data.
-   $result = $tipsService->get_all();
-   
-   if($result){
-      Flight::json(['result' => $result]);
-   } else{
-      Flight::json(['message' => 'Failed to get all tips!']);
-   }
+      Flight::json(['result' => $result], 200);
+
 });
 
 /**
      * @OA\Get(
      *      path="/getTipById/{id}",
      *      tags={"tips"},
-     *      summary="Get tip by id",
+     *      summary="Get tip by id.",
+     *      security={
+     *         {"ApiKey": {}}
+     *      },
      *      @OA\Response(
      *           response=200,
-     *           description="Study tip data, or false if study tip does not exist"
+     *           description="Study tip data, or false if study tip does not exist."
      *      ),
-     *      @OA\Parameter(@OA\Schema(type="number"), in="query", name="id", example="1", description="Tip ID")
+     *      @OA\Parameter(@OA\Schema(type="number"), in="path", name="id", example="1", description="Tip ID")
      * )
      */
 Flight::route("GET /getTipById/@id", function($id){
 
-   $tipsService = new TipsService();
+   try{
+      $token = Flight::request()->getHeader("Authentication");
+      if(!$token){
+         Flight::halt(401, "Missing authentication header!");
+      }
+      $decoded_token = JWT::decode($token, new Key(JWT_SECRET, 'HS256')); //If I add something it would fail because I am trying to decode jwt token signed with one secret, with another
 
-   $result = $tipsService->get_by_id($id);
-   
-   if($result){
-      Flight::json(['result' => $result]);
-   } else{
-      Flight::json(['message' => 'Failed to get a tip!']);
+      $tipsService = new TipsService();
+      $result = $tipsService->get_by_id($id);
+
+      Flight::json([
+         'jwt_decoded' => $decoded_token,
+         'user' => $decoded_token->user,
+         'result' => $result
+      ]);
+      
+   }catch(\Exception $e){
+      Flight::halt(401, $e->getMessage()); //401 -> means unauthenticated user
    }
 });
 
@@ -89,7 +111,10 @@ Flight::route("GET /getTipById/@id", function($id){
  * @OA\Put(
  *     path="/editTip/{id}",
  *     tags={"tips"},
- *     summary="Edit study tip data",
+ *     summary="Edit study tip data.",
+ *     security={
+ *         {"ApiKey": {}}
+ *      },
  *     @OA\Parameter(
  *         name="id",
  *         in="path",
@@ -99,45 +124,74 @@ Flight::route("GET /getTipById/@id", function($id){
  *     ),
  *     @OA\RequestBody(
  *         required=true,
- *         description="Request body containing current data",
+ *         description="Request body containing current data.",
  *         @OA\JsonContent(
- *              @OA\Property(property="category", type="string", example="Some category", description="New category"),
- *              @OA\Property(property="details", type="string", example="Some details", description="New details"),
- *              @OA\Property(property="title", type="string", example="Some title", description="New title")
+ *              @OA\Property(property="category", type="string", example="Focus", description="New category"),
+ *              @OA\Property(property="details", type="string", example="Create a dedicated workspace free from distractions. Use tools like noise-cancelling headphones or ambient music to drown out background noise", description="New details"),
+ *              @OA\Property(property="title", type="string", example="Space around matters", description="New title")
  *         )
  *     )
  * )
  */
 Flight::route("PUT /editTip/@id", function($id){
 
-   $payload = Flight::request()->data->getData();
-   $tipsService = new TipsService();
+   try{
+      $token = Flight::request()->getHeader("Authentication");
+      if(!$token){
+         Flight::halt(401, "Missing authentication header!");
+      }
+      $decoded_token = JWT::decode($token, new Key(JWT_SECRET, 'HS256')); //If I add something it would fail because I am trying to decode jwt token signed with one secret, with another
 
-   $result = $tipsService->update($payload,$id);
-   
-   if($result){
-      Flight::json(['message' => 'Study tip succesfully edited!', 'result' => $result]);
-   } else{
-      Flight::json(['message' => 'Failed to edit study tip!']);
+      $payload = Flight::request()->data->getData();
+      $tipsService = new TipsService();
+      $result = $tipsService->update($payload,$id);
+
+      Flight::json([
+         'jwt_decoded' => $decoded_token,
+         'user' => $decoded_token->user,
+         'result' => $result
+      ]);
+
+   }catch(\Exception $e){
+      Flight::halt(401, $e->getMessage()); //401 -> means unauthenticated user
    }
 });
+
 
  /**
      * @OA\Delete(
      *      path="/deleteTip/{id}",
      *      tags={"tips"},
-     *      summary="Delete tip by id",
+     *      summary="Delete tip by id.",
+     *      security={
+     *         {"ApiKey": {}}
+     *      },
      *      @OA\Response(
      *           response=200,
-     *           description="Deleted tip data or 500 status code exception otherwise"
+     *           description="Deleted tip data or 500 status code exception otherwise."
      *      ),
      *      @OA\Parameter(@OA\Schema(type="number"), in="path", name="id", example="1", description="Tip ID")
      * )
      */
 Flight::route("DELETE /deleteTip/@id", function($id){
 
-  Flight::tips_service()->delete($id);
-  Flight::json(['message' => 'Study tip succesfully deleted!']);
+   try{
+      $token = Flight::request()->getHeader("Authentication");
+      if(!$token){
+         Flight::halt(401, "Missing authentication header!");
+      }
+      $decoded_token = JWT::decode($token, new Key(JWT_SECRET, 'HS256')); //If I add something it would fail because I am trying to decode jwt token signed with one secret, with another
+
+      Flight::tips_service()->delete($id);
+
+      Flight::json([
+         'jwt_decoded' => $decoded_token,
+         'user' => $decoded_token->user
+      ]);
+
+   }catch(\Exception $e){
+      Flight::halt(401, $e->getMessage()); //401 -> means unauthenticated user
+   }
 
 });
 ?>
