@@ -56,7 +56,7 @@
                 <div class="navbar-end">
                     <div class="navbar-item">
                         <div class="buttons">
-                            <a class="button is-light" id="logout">
+                            <a class="button is-light" id="logout-userprofile">
                                 Log Out
                             </a>
                         </div>
@@ -78,7 +78,7 @@
     </main>
 
     
-<script src="assets/js/getUser.js"></script>
+<script src="assets/js/user.js"></script>
 
 <!--Script for open and close the hamburger menu-->
 <script>
@@ -136,6 +136,19 @@
         window.location.hash = "userProfile";
       });
     });
+  </script>
+
+   <!--Removing user_type from local storage-->
+   <script>
+
+    $(document).ready(function () {
+      $("#logout-userprofile").on("click", () => {
+        localStorage.removeItem('current_user');
+        localStorage.removeItem('user');
+        localStorage.removeItem('users_id');
+        localStorage.removeItem('token');
+      });
+    })
   </script>
 </body>
   

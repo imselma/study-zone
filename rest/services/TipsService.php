@@ -13,6 +13,7 @@ class TipsService extends BaseService{
             'category' => $data['category'],
             'details' => $data['details'],
             'title' => $data['title'],
+            'users_id' => $data['users_id']
         ];
         return $this->add($tip);//calling the add() method on previous instantiated BaseDao object 
     }

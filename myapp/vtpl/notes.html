@@ -84,29 +84,29 @@
         <p class="modal-card-title">Add Note</p>
         <button class="delete" aria-label="close"></button>
       </header>
+      <form id="addNotes-form">
       <section class="modal-card-body">
         <div class="modalfield">
           <p class="has-icons-right">
-            <input class="input" type="text" placeholder="Note definition:">
+            <input class="input" type="text" name="noteDefinition" placeholder="Note definition:">
           </p>
         </div>
         <div class="modalfield">
           <p class="control has-icons-right">
-            <input class="input" type="text" placeholder="Details:">
+            <input class="input" type="text" name="noteDetails" placeholder="Details:">
           </p>
         </div>
       </section>
       <footer class="modal-card-foot">
         <div class="buttons">
-          <button class="button is-success" id="save-btn-note">Save changes</button>
-          <button class="button" id="cancel-btn">Cancel</button>
+          <button type="submit" class="button is-success" id="save-btn-note">Save changes</button>
+          <button type="button" class="button" id="cancel-btn">Cancel</button>
         </div>
       </footer>
+    </form>
     </div>
   </div>
 
-
-  <script src="assets/js/notes.js"></script>
   <script src="./assets/js/jquery.min.js"></script>
 
   <!--Script for open and close the hamburger menu-->
@@ -185,12 +185,19 @@
 
   <!--Removing user_type from local storage-->
   <script>
+
     $(document).ready(function () {
-      $("#logout").on("click", () => {
+      $("#logout-notes").on("click", () => {
+        localStorage.removeItem('current_user');
         localStorage.removeItem('user');
+        localStorage.removeItem('users_id');
+        localStorage.removeItem('token');
       });
     })
   </script>
+
+<script src="./assets/js/jquery.validate.min.js"></script>
+<script src="assets/js/notes.js"></script>
 </body>
 
 </html>

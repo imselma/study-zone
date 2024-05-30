@@ -37,20 +37,28 @@ var UserService = {
 
     login: function(entity) {
         $.ajax({
-            url: "../rest/login",
+            url: "../rest/authLogin",
             type: "POST",
             data: JSON.stringify(entity),
             contentType: "application/json",
             dataType: "json",
+            beforeSend: function(xhr) {
+                if(localStorage.getItem('current_user')){
+                  xhr.setRequestHeader("Authentication", localStorage.getItem('token'));
+                }
+              },
             success: function(result) {
 
                 $("input[name='email']").val(''),
                 $("input[name='password']").val('')
-                localStorage.setItem('user', JSON.stringify(result.user['user_type']));
-                localStorage.setItem('users_id', JSON.stringify(result.user['id']));
-                if(result && result.user){
+                localStorage.setItem('current_user', JSON.stringify(result));
+                localStorage.setItem('user', result.user_type);
+                localStorage.setItem('users_id', result.id);
+                localStorage.setItem('token', result.token);
+                
+                if(result){
                     alert("Login successfull!");
-                    if(result.user['user_type'] === 'admin'){
+                    if(result.user_type === 'admin'){
                         window.location.hash = '#adminPanel';
                     }
                     else{
@@ -59,10 +67,8 @@ var UserService = {
                 }
             },
             error: function(result) {
-                  //alert("Login failed: " + XMLHttpRequest.responseText);
-                  if(!result){
-                    alert("Login failed!");                    
-            }
+                alert("Login failed due to wrong credentials!");
+                
             }
         });
     }

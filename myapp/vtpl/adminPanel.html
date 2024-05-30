@@ -164,9 +164,11 @@
   <script>
 
     $(document).ready(function () {
-
       $("#logout").on("click", () => {
+        localStorage.removeItem('current_user');
         localStorage.removeItem('user');
+        localStorage.removeItem('users_id');
+        localStorage.removeItem('token');
       });
     })
   </script>

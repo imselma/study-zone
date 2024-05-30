@@ -6,7 +6,7 @@ define('BASE_URL', 'http://localhost/study-zone/rest/');
 
 error_reporting(0);
 
-$openapi = \OpenApi\Generator::scan(['../../../rest', './'], ['pattern' => '*.php']);
+$openapi = \OpenApi\Generator::scan(['../../../routes', './'], ['pattern' => '*.php']);
 // $openapi = \OpenApi\Util::finder(['../../../rest/routes', './'], NULL, '*.php');
 // $openapi = \OpenApi\scan(['../../../rest', './'], ['pattern' => '*.php']);
 

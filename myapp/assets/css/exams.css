@@ -21,6 +21,17 @@
     flex-direction: column;
 }
 
+#exams-container {
+    margin-left: 5vh;
+    margin-right: 5vh;
+    margin-bottom: 5vh;
+    margin-top: 2vh;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content:space-between;
+}
+
 #add-exam {
     margin: 5vh;
     width: 15vh;

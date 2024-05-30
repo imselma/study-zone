@@ -102,6 +102,17 @@ require_once __DIR__."/../Config.class.php";
         $stmt->bindParam(':id', $id); #prevent SQL injection
         $stmt->execute();
     }
+
+    public function query($query, $params){
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute($params);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    
+    public function query_unique($query, $params){
+        $results = $this->query($query, $params);
+        return reset($results);
+    }
  }
 
 ?>

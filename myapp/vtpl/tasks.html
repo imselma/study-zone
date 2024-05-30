@@ -190,9 +190,13 @@
 
 <!--Removing user_type from local storage-->
 <script>
-  $(document).ready(function(){
-    $("#logout").on("click", () => {
+
+  $(document).ready(function () {
+    $("#logout-tasks").on("click", () => {
+      localStorage.removeItem('current_user');
       localStorage.removeItem('user');
+      localStorage.removeItem('users_id');
+      localStorage.removeItem('token');
     });
   })
 </script>

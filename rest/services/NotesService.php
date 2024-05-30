@@ -12,6 +12,7 @@ class NotesService extends BaseService{
         $note = [
             'title' => $data['title'],
             'details' => $data['details'],
+            'users_id' => $data['users_id']
         ];
         return $this->add($note);//calling the add() method on previous instantiated BaseDao object 
     }

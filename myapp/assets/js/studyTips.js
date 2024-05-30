@@ -56,6 +56,11 @@ var TipsService = {
             data: JSON.stringify(entity),
             contentType: "application/json",
             dataType: "json",
+            beforeSend: function(xhr) {
+                if(localStorage.getItem('current_user')){
+                  xhr.setRequestHeader("Authentication", localStorage.getItem('token'));
+                }
+              },
             success: function (result) {
                 console.log("Success! Redirecting to admin panel...");
                 $('.modal').removeClass('is-active');
@@ -102,6 +107,7 @@ var TipsService = {
                 });
             
                 $('#tips-container').html(output);
+                $('#tips-container2').html(output);
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 alert("Failed to fetch study tips: " + XMLHttpRequest.responseText);

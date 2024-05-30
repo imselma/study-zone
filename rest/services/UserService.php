@@ -40,5 +40,22 @@ class UserService extends BaseService{
       }
     }
 
+    public function editUser($data, $id){
+
+        $hash = password_hash($data['password'], PASSWORD_DEFAULT);
+        $user = [
+            'user_type' => $data['user_type'],
+            'first_name' => $data['first_name'],
+            'last_name' => $data['last_name'],
+            'username' => $data['username'],
+            'email' => $data['email'],
+            'password' => $hash,
+            'university' => $data['university'],
+            'department' => $data['department'],
+        ];
+        return $this->update($user, $id);//calling the update() method on previous instantiated BaseDao object 
+    }
+
+
 }
 ?>

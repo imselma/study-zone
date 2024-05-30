@@ -52,6 +52,11 @@ var TaskService = {
       data: JSON.stringify(entity),
       contentType: "application/json",
       dataType: "json",
+      beforeSend: function(xhr) {
+        if(localStorage.getItem('current_user')){
+          xhr.setRequestHeader("Authentication", localStorage.getItem('token'));
+        }
+      },
       success: function (result) {
 
         var newTask = result; // Assuming the server returns the newly created task
@@ -76,6 +81,11 @@ var TaskService = {
       type: "GET",
       contentType: "application/json",
       dataType: "json",
+      beforeSend: function(xhr) {
+        if(localStorage.getItem('current_user')){
+          xhr.setRequestHeader("Authentication", localStorage.getItem('token'));
+        }
+      },
       success: function (data) {
         console.log("Success! Data received:", data);
 
@@ -175,6 +185,35 @@ var TaskService = {
       </div>`;
       });
 
+      let output2 = '';
+        if(data.length === 0){
+          output2+=`
+          <p>No exams to display.</p>
+          `;
+      }else{
+      TaskService.tasksArray.forEach((task, index) => {
+        output2 += `
+        <div class="card" id="exam-card" style=" margin-top: 10px; margin-bottom: 10px; background-color: #eaeaea; border: 1px solid #0272a1;">
+        <header class="card-header" style="background-color: #0272a1; color: #eaeaea;">
+          <p class="card-header-title" style="color: #eaeaea;">
+            ${task.title}
+          </p>
+        </header>
+        <div class="card-content" style="color: #0272a1; display: flex; flex-direction: column; align-items: center;">
+          <div class="content">
+            ${task.details}
+          </div>
+          <div class="time" style="font-weight: bold; text-align: left;">
+            ${task.deadline}
+          </div>
+        </div>
+    </div>
+    `;
+    });}
+
+    $("#dashTasks").append(output2);
+
+
         // Add event listener for dropdown trigger buttons
         $(document).on('click', '.dropdown-trigger button', function () {
           $(this).closest('.dropdown').toggleClass('is-active');
@@ -243,7 +282,11 @@ var TaskService = {
       type: "PUT",
       data: JSON.stringify(entity),
       contentType: "application/json",
-      dataType: "json",
+      beforeSend: function(xhr) {
+        if(localStorage.getItem('current_user')){
+          xhr.setRequestHeader("Authentication", localStorage.getItem('token'));
+        }
+      },
       success: function (result) {
 
         //Automatically reload the content on page, without the forced reload
@@ -277,6 +320,11 @@ var TaskService = {
       url: "../rest/deleteTask/" + taskId,
       type: "DELETE",
       contentType: "application/json",
+      beforeSend: function(xhr) {
+        if(localStorage.getItem('current_user')){
+          xhr.setRequestHeader("Authentication", localStorage.getItem('token'));
+        }
+      },
       success: function (result) {
 
         var $taskElement = $(`#task-card[task-id="${taskId}"]`);

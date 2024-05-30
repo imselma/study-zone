@@ -70,19 +70,28 @@
         <p id="currentDate"></p>
       </div>
       <div class="columns is-vcentered">
-        <div class="column">
+        <div class="wrap" style="display: flex; flex-direction: column;">
           <div class="column-paragraf">Tasks</div>
-          <div id="dashTasks"></div>
-        </div>
         <div class="column">
+            <div class="column-content" id="dashTasks"></div>
+        </div>
+        </div>
+        
+        <div class="wrap" style="display: flex; flex-direction: column;">
           <div class="column-paragraf">Exams</div>
-          <div id="dashExams"></div>
-        </div>
         <div class="column">
-          <div class="column-paragraf">Notes</div>
-          <div id="dashNotes"></div>
+            <div class="column-content" id="dashExams"></div>
         </div>
-      </div>
+        </div>
+
+        <div class="wrap" style="display: flex; flex-direction: column;">
+          <div class="column-paragraf">Notes</div>
+        <div class="column">
+            <div class="column-content" id="dashNotes"></div>
+        </div>
+        </div>
+      
+    </div>
     </div>
   </main>
 
@@ -141,9 +150,13 @@
 
   <!--Removing user_type from local storage-->
   <script>
+
     $(document).ready(function () {
-      $("#logout").on("click", () => {
+      $("#logout-dashboard").on("click", () => {
+        localStorage.removeItem('current_user');
         localStorage.removeItem('user');
+        localStorage.removeItem('users_id');
+        localStorage.removeItem('token');
       });
     })
   </script>

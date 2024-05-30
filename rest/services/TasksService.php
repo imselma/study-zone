@@ -5,7 +5,7 @@ require_once __DIR__."/../dao/TasksDao.class.php";
 class TasksService extends BaseService{
     public function __construct(){
         parent::__construct(new TasksDao);
-    } 
+    }
 
     public function addTask($data){
 
