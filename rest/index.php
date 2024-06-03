@@ -8,6 +8,8 @@ require "./services/NotesService.php";
 require "./services/ExamsService.php";
 require "./services/AuthService.php";
 
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: PUT, GET, POST, DELETE, OPTIONS, PATCH');
 
 Flight::register('base_services', "BaseService");
 Flight::register('user_service', "UserService");
