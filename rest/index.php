@@ -1,5 +1,5 @@
 <?php
-require 'vendor/autoload.php'; 
+require_once dirname(__FILE__) . '/vendor/autoload.php'; 
 require "./services/BaseService.php";
 require "./services/UserService.php";
 require "./services/TipsService.php";
