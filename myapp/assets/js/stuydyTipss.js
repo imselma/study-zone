@@ -18,33 +18,33 @@ var getTips = {
                 var output = '';
                 tipsArray.forEach((tip) => {
                     output +=  `
-                    <div class="card" id="tips-card" tips-id="${tip.id}" style="margin-bottom: 20px; max-width: 350px; border-radius: 10px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); background-color: #fff;">
+                    <div class="card" id="tips-card" tips-id="${tip.id}" style="margin-bottom: 20px; max-width: 100%; width: 350px; border-radius: 10px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); background-color: #fff; margin: auto;">
                         <header class="card-header" style="padding: 5px; border-top-left-radius: 10px; border-top-right-radius: 10px; background-color: #0272a1;">
-                            <p class="card-header-title" style="margin: 0; font-size: 18px; color: #fff;">${tip.title}</p>
+                            <p class="card-header-title" style="justify-content: center; height: 40px; margin: 0; font-size: 15px; color: #fff; font-weight: bold;">${tip.title}</p>
                         </header>
                         <div class="card-content" style="padding: 10px;">
-                            <div class="content" style="font-size: 16px;"> Category: ${tip.category}</div>
+                            <div class="content" style="font-size: 16px; color: gray;">Category: ${tip.category}</div>
                         </div>
                         <div class="card-content" style="padding: 10px;">
                             <div class="content" style="display: flex; justify-content: center;">
-                                <div class="dropdown is-hoverable">
-                                    <div class="dropdown-trigger">
-                                        <button class="button is-success is-small" aria-haspopup="true" aria-controls="dropdown-menu" style="background-color: #0272a1; color: #eaeaea;">
+                                <div class="dropdown is-hoverable" style="width: 100%;">
+                                    <div class="dropdown-trigger" style="width: 100%; text-align: center;">
+                                        <button class="button is-success is-small" aria-haspopup="true" aria-controls="dropdown-menu" style="background-color: #0272a1; color: #eaeaea; width: 40%; border: none; border-radius: 5px;">
                                             View Details
                                             <span class="icon is-small">
                                                 <i class="fas fa-angle-down" aria-hidden="true"></i>
                                             </span>
                                         </button>
                                     </div>
-                                    <div class="dropdown-menu" id="dropdown-menu" role="menu" style="box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);">
-                                        <div class="dropdown-content" style="text-align: left;">
-                                            <p class="details-tips" style="margin: 0; margin-left: 10px; margin-right: 10px; font-size: 14px;">${tip.details}</p>
+                                    <div class="dropdown-menu" id="dropdown-menu" role="menu" style="box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); width: 100%;">
+                                        <div class="dropdown-content" style="text-align: left; padding: 10px; background-color: #fff; border-radius: 5px;">
+                                            <p class="details-tips" style="margin: 0; font-size: 14px; color: gray;">${tip.details}</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>                
                 `;
                 
 
@@ -63,7 +63,7 @@ $(document).ready(function () {
     getTips.init();
 });
 
-  // Add event listener for dropdown trigger buttons
+ /* // Add event listener for dropdown trigger buttons
   $(document).on('click', '.dropdown-trigger button', function () {
     $(this).closest('.dropdown').toggleClass('is-active');
   });
@@ -73,4 +73,4 @@ $(document).ready(function () {
     if (!$(e.target).closest('.dropdown').length) {
       $('.dropdown').removeClass('is-active');
     }
-  });
+  });*/

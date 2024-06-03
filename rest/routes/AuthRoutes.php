@@ -45,7 +45,7 @@ Flight::route("POST /authLogin", function() {
       //create token
       $token = JWT::encode(
          $jwt_payload, //payload
-         JWT_SECRET, //secret created in config
+         Config::JWT_SECRET(), //secret created in config
          'HS256' //algorithm used to create token (SHA256)
       );
    
@@ -80,7 +80,7 @@ Flight::route('POST /authLogout', function() {
       if(!$token){
          Flight::halt(401, "Missing authentication header!");
       }
-      $decoded_token = JWT::decode($token, new Key(JWT_SECRET, 'HS256')); //If I add something it would fail because I am trying to decode jwt token signed with one secret, with another
+      $decoded_token = JWT::decode($token, new Key(Config::JWT_SECRET(), 'HS256')); //If I add something it would fail because I am trying to decode jwt token signed with one secret, with another
 
       Flight::json([
          'jwt_decoded' => $decoded_token,

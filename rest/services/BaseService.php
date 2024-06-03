@@ -34,6 +34,18 @@ class BaseService {
     public function getUserById($id) {
         return $this->dao->getUserById($id);
     }
+    
+    public function getExamByUserId($user_id){
+        return $this->dao->getExamByUserId($user_id);
+    }
+
+    public function getNoteByUserId($user_id){
+        return $this->dao->getNoteByUserId($user_id);
+    }
+
+    public function getTaskByUserId($user_id){
+        return $this->dao->getTaskByUserId($user_id);
+    }
 
 }
 
