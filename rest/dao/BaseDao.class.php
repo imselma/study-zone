@@ -11,12 +11,22 @@ require_once __DIR__."/../Config.class.php";
     public function __construct($table_name){
         try {
           $this->table_name = $table_name;
-          $servername = Config::DB_HOST();
-          $username = Config::DB_USERNAME();
-          $password = Config::DB_PASSWORD();
-          $schema = config::DB_NAME();
-          $port = Config::DB_PORT();
-          $this->conn = new PDO("mysql:host=$servername;dbname=$schema;port:$port", $username, $password);
+          $db_info = array(
+            'host' => Config::DB_HOST(),
+            'port' => Config::DB_PORT(),
+            'name' => Config::DB_NAME(),
+            'user' => Config::DB_USERNAME(),
+            'pass' => Config::DB_PASSWORD()
+            );
+
+
+          $options = array(
+            PDO::MYSQL_ATTR_SSL_CA => "https://drive.google.com/file/d/13pKkwd62FCK7ixWxtHnKPpBeHHa233Ef/view?usp=drive_linkt",
+            PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => false,
+  
+          );
+
+          $this->conn = new PDO( 'mysql:host=' . $db_info['host'] . ';port=' . $db_info['port'] . ';dbname=' . $db_info['name'], $db_info['user'], $db_info['pass'], $options );
           // set the PDO error mode to exception
           $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
           //echo "Connected successfully";

@@ -7,7 +7,7 @@ var getUser = {
     displayUser: function () {
 
         $.ajax({
-            url: "../rest/getUserById",
+            url: Constants.get_api_base_url() + "getUserById",
             type: "GET",
             contentType: "application/json",
             dataType: "json",

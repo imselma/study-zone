@@ -5,7 +5,7 @@ var getTips = {
 
     displayTips: function () {
         $.ajax({
-            url: "../rest/getAllTips",
+            url: Constants.get_api_base_url() + "getAllTips",
             type: "GET",
             contentType: "application/json",
             dataType: "json",
@@ -62,15 +62,3 @@ var getTips = {
 $(document).ready(function () {
     getTips.init();
 });
-
- /* // Add event listener for dropdown trigger buttons
-  $(document).on('click', '.dropdown-trigger button', function () {
-    $(this).closest('.dropdown').toggleClass('is-active');
-  });
-
-  // Close dropdowns when clicking outside of them
-  $(document).on('click', function (e) {
-    if (!$(e.target).closest('.dropdown').length) {
-      $('.dropdown').removeClass('is-active');
-    }
-  });*/

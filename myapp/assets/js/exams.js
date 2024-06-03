@@ -47,7 +47,7 @@ var ExamService = {
   //Add logic
   addExam: function (entity) {
     $.ajax({
-      url: "../rest/addExam",
+      url: Constants.get_api_base_url() + "addExam",
       type: "POST",
       data: JSON.stringify(entity),
       contentType: "application/json",
@@ -78,7 +78,7 @@ var ExamService = {
   displayExams: function () {
 
     $.ajax({
-      url: "../rest/getExamByUserId",
+      url: Constants.get_api_base_url() + "getExamByUserId",
       type: "GET",
       contentType: "application/json",
       dataType: "json",
@@ -278,7 +278,7 @@ var ExamService = {
 
   editExam: function (entity, examId) {
     $.ajax({
-      url: "../rest/editExam/" + examId,
+      url: Constants.get_api_base_url() + "editExam/" + examId,
       type: "PUT",
       data: JSON.stringify(entity),
       contentType: "application/json",
@@ -318,7 +318,7 @@ var ExamService = {
 
   deleteExam: function (examId) {
     $.ajax({
-      url: "../rest/deleteExam/" + examId,
+      url: Constants.get_api_base_url() + "deleteExam/" + examId,
       type: "DELETE",
       contentType: "application/json",
       beforeSend: function(xhr) {

@@ -37,7 +37,7 @@ var UserService = {
 
     login: function(entity) {
         $.ajax({
-            url: "../rest/authLogin",
+            url: Constants.get_api_base_url() + "authLogin",
             type: "POST",
             data: JSON.stringify(entity),
             contentType: "application/json",

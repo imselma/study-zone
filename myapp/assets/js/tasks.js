@@ -47,7 +47,7 @@ var TaskService = {
   //Add logic
   addTask: function (entity) {
     $.ajax({
-      url: "../rest/addTask",
+      url: Constants.get_api_base_url() + "addTask",
       type: "POST",
       data: JSON.stringify(entity),
       contentType: "application/json",
@@ -77,7 +77,7 @@ var TaskService = {
   //Display logic
   displayTasks: function () {
     $.ajax({
-      url: "../rest/getTaskByUserId",
+      url: Constants.get_api_base_url() + "getTaskByUserId",
       type: "GET",
       contentType: "application/json",
       dataType: "json",
@@ -213,20 +213,6 @@ var TaskService = {
 
     $("#dashTasks").append(output2);
 
-
-      /*  // Add event listener for dropdown trigger buttons
-        $(document).on('click', '.dropdown-trigger button', function () {
-          $(this).closest('.dropdown').toggleClass('is-active');
-        });
-
-        // Close dropdowns when clicking outside of them
-        $(document).on('click', function (e) {
-          if (!$(e.target).closest('.dropdown').length) {
-            $('.dropdown').removeClass('is-active');
-          }
-        });*/
-
-
         //Fetch task data based on index
         $(document).on('click', '.edit-task', function () {
           var taskIndex = $(this).data('task-index');
@@ -278,7 +264,7 @@ var TaskService = {
 
   editTask: function (entity, taskId) {
     $.ajax({
-      url: "../rest/editTask/" + taskId,
+      url: Constants.get_api_base_url() + "editTask/" + taskId,
       type: "PUT",
       data: JSON.stringify(entity),
       contentType: "application/json",
@@ -317,7 +303,7 @@ var TaskService = {
 
   deleteTask: function (taskId) {
     $.ajax({
-      url: "../rest/deleteTask/" + taskId,
+      url: Constants.get_api_base_url() + "deleteTask/" + taskId,
       type: "DELETE",
       contentType: "application/json",
       beforeSend: function(xhr) {
