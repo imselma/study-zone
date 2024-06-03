@@ -1,8 +1,5 @@
 <?php
 
-use Firebase\JWT\JWT;
-use Firebase\JWT\Key;
-
 /**
      * @OA\Post(
      *      path="/addExam",
@@ -28,29 +25,14 @@ use Firebase\JWT\Key;
      */
 Flight::route("POST /addExam", function() {
 
-   try{
-      $token = Flight::request()->getHeader("Authentication");
-      if(!$token){
-         Flight::halt(401, "Missing authentication header!");
-      }
-      $decoded_token = JWT::decode($token, new Key(JWT_SECRET, 'HS256')); //If I add something it would fail because I am trying to decode jwt token signed with one secret, with another
-
-      $payload = Flight::request()->data->getData();  //Getting data from the request payload.
-      //Making an instance of Userservice
+      $payload = Flight::request()->data->getData();
+      $payload['users_id']= Flight::get('user')->id;
       $examsService = new ExamsService();
-      //Add exam to db
       $result = $examsService->addExam($payload);
 
       Flight::json([
-         'jwt_decoded' => $decoded_token,
-         'user' => $decoded_token->user,
          'result' => $result
       ]);
-   
-   }catch(\Exception $e){
-      Flight::halt(401, $e->getMessage()); //401 -> means unauthenticated user
-   }
-
 });
 
 /**
@@ -69,26 +51,12 @@ Flight::route("POST /addExam", function() {
      */
 Flight::route("GET /getAllExams", function(){
 
-   try{
-      $token = Flight::request()->getHeader("Authentication");
-      if(!$token){
-         Flight::halt(401, "Missing authentication header!");
-      }
-      $decoded_token = JWT::decode($token, new Key(JWT_SECRET, 'HS256')); //If I add something it would fail because I am trying to decode jwt token signed with one secret, with another
-
       $examsService = new ExamsService();
-      //get_all() is inherited from BaseService. TipsService extends BaseService, which contains the get_all() method, you don't need to define it again in TipsService again like the POST method where you are sending some data.
       $result = $examsService->get_all();
 
       Flight::json([
-         'jwt_decoded' => $decoded_token,
-         'user' => $decoded_token->user,
          'result' => $result
       ]);
-   
-   }catch(\Exception $e){
-      Flight::halt(401, $e->getMessage()); //401 -> means unauthenticated user
-   }
 });
 
 /**
@@ -108,27 +76,38 @@ Flight::route("GET /getAllExams", function(){
      */
 Flight::route("GET /getExamById/@id", function($id){
 
-   try{
-      $token = Flight::request()->getHeader("Authentication");
-      if(!$token){
-         Flight::halt(401, "Missing authentication header!");
-      }
-      $decoded_token = JWT::decode($token, new Key(JWT_SECRET, 'HS256')); //If I add something it would fail because I am trying to decode jwt token signed with one secret, with another
-
       $examsService = new ExamsService();
       $result = $examsService->get_by_id($id);
 
       Flight::json([
-         'jwt_decoded' => $decoded_token,
-         'user' => $decoded_token->user,
          'result' => $result
       ]);
-    
-   }catch(\Exception $e){
-      Flight::halt(401, $e->getMessage()); //401 -> means unauthenticated user
-   }
-
  });
+
+/**
+     * @OA\Get(
+     *      path="/getExamByUserId",
+     *      tags={"exams"},
+     *      summary="Get exam by user id.",
+     *      security={
+     *         {"ApiKey": {}}
+     *      },
+     *      @OA\Response(
+     *           response=200,
+     *           description="Get exam data or 500 status code exception otherwise"
+     *      )
+     * )
+     */
+    Flight::route("GET /getExamByUserId", function(){
+
+     $examService = new ExamsService();
+     $result = $examService->getExamByUserId(Flight::get('user')->id);
+
+     Flight::json([
+        'result' => $result
+     ]);
+});
+
 
 /**
  * @OA\Put(
@@ -157,27 +136,13 @@ Flight::route("GET /getExamById/@id", function($id){
  */
 Flight::route("PUT /editExam/@id", function($id){
 
-   try{
-      $token = Flight::request()->getHeader("Authentication");
-      if(!$token){
-         Flight::halt(401, "Missing authentication header!");
-      }
-      $decoded_token = JWT::decode($token, new Key(JWT_SECRET, 'HS256')); //If I add something it would fail because I am trying to decode jwt token signed with one secret, with another
-
       $payload = Flight::request()->data->getData();
       $examsService = new ExamsService();
       $result = $examsService->update($payload,$id);
 
       Flight::json([
-         'jwt_decoded' => $decoded_token,
-         'user' => $decoded_token->user,
          'result' => $result
       ]); 
-   
-   }catch(\Exception $e){
-      Flight::halt(401, $e->getMessage()); //401 -> means unauthenticated user
-   }
-
  });
 
 /**
@@ -196,24 +161,7 @@ Flight::route("PUT /editExam/@id", function($id){
      * )
      */
 Flight::route("DELETE /deleteExam/@id", function($id){
-
-   try{
-      $token = Flight::request()->getHeader("Authentication");
-      if(!$token){
-         Flight::halt(401, "Missing authentication header!");
-      }
-      $decoded_token = JWT::decode($token, new Key(JWT_SECRET, 'HS256')); //If I add something it would fail because I am trying to decode jwt token signed with one secret, with another
-
       Flight::exams_service()->delete($id);
-
-      Flight::json([
-         'jwt_decoded' => $decoded_token,
-         'user' => $decoded_token->user
-      ]);
-      
-   }catch(\Exception $e){
-      Flight::halt(401, $e->getMessage()); //401 -> means unauthenticated user
-   }
   
   });
 ?>

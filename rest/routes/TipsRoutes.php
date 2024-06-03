@@ -1,7 +1,5 @@
 <?php
 
-use Firebase\JWT\JWT;
-use Firebase\JWT\Key;
 /**
      * @OA\Post(
      *      path="/addTip",
@@ -25,28 +23,22 @@ use Firebase\JWT\Key;
      *      )
      * )
      */
-Flight::route("POST /addTip", function() {
+    Flight::route("POST /addTip", function() {
 
-   try{
-      $token = Flight::request()->getHeader("Authentication");
-      if(!$token){
-         Flight::halt(401, "Missing authentication header!");
+      $payload = Flight::request()->data->getData();
+      $payload['users_id']= Flight::get('user')->id;
+      $userService = new UserService();
+      $user = $userService->getUserById($payload['users_id']);
+      if($user['user_type'] != 'admin'){
+            Flight::halt(500, "you are not the admin user!");
+      }else {
+            $tipsService = new TipsService();
+            $result = $tipsService->addTip($payload);
+
+            Flight::json([
+            'result' => $result
+            ]);    
       }
-      $decoded_token = JWT::decode($token, new Key(JWT_SECRET, 'HS256')); //If I add something it would fail because I am trying to decode jwt token signed with one secret, with another
-
-      $payload = Flight::request()->data->getData(); 
-      $tipsService = new TipsService();
-      $result = $tipsService->addTip($payload);
-
-      Flight::json([
-         'jwt_decoded' => $decoded_token,
-         'user' => $decoded_token->user,
-         'result' => $result
-      ]);
-   
-   }catch(\Exception $e){
-      Flight::halt(401, $e->getMessage()); //401 -> means unauthenticated user
-   }
 });
 
 /**
@@ -86,25 +78,12 @@ Flight::route("GET /getAllTips", function(){
      */
 Flight::route("GET /getTipById/@id", function($id){
 
-   try{
-      $token = Flight::request()->getHeader("Authentication");
-      if(!$token){
-         Flight::halt(401, "Missing authentication header!");
-      }
-      $decoded_token = JWT::decode($token, new Key(JWT_SECRET, 'HS256')); //If I add something it would fail because I am trying to decode jwt token signed with one secret, with another
-
       $tipsService = new TipsService();
       $result = $tipsService->get_by_id($id);
 
       Flight::json([
-         'jwt_decoded' => $decoded_token,
-         'user' => $decoded_token->user,
          'result' => $result
       ]);
-      
-   }catch(\Exception $e){
-      Flight::halt(401, $e->getMessage()); //401 -> means unauthenticated user
-   }
 });
 
 /**
@@ -135,26 +114,13 @@ Flight::route("GET /getTipById/@id", function($id){
  */
 Flight::route("PUT /editTip/@id", function($id){
 
-   try{
-      $token = Flight::request()->getHeader("Authentication");
-      if(!$token){
-         Flight::halt(401, "Missing authentication header!");
-      }
-      $decoded_token = JWT::decode($token, new Key(JWT_SECRET, 'HS256')); //If I add something it would fail because I am trying to decode jwt token signed with one secret, with another
-
       $payload = Flight::request()->data->getData();
       $tipsService = new TipsService();
       $result = $tipsService->update($payload,$id);
 
       Flight::json([
-         'jwt_decoded' => $decoded_token,
-         'user' => $decoded_token->user,
          'result' => $result
       ]);
-
-   }catch(\Exception $e){
-      Flight::halt(401, $e->getMessage()); //401 -> means unauthenticated user
-   }
 });
 
 
@@ -175,23 +141,6 @@ Flight::route("PUT /editTip/@id", function($id){
      */
 Flight::route("DELETE /deleteTip/@id", function($id){
 
-   try{
-      $token = Flight::request()->getHeader("Authentication");
-      if(!$token){
-         Flight::halt(401, "Missing authentication header!");
-      }
-      $decoded_token = JWT::decode($token, new Key(JWT_SECRET, 'HS256')); //If I add something it would fail because I am trying to decode jwt token signed with one secret, with another
-
       Flight::tips_service()->delete($id);
-
-      Flight::json([
-         'jwt_decoded' => $decoded_token,
-         'user' => $decoded_token->user
-      ]);
-
-   }catch(\Exception $e){
-      Flight::halt(401, $e->getMessage()); //401 -> means unauthenticated user
-   }
-
 });
 ?>

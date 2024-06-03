@@ -76,8 +76,9 @@ var ExamService = {
 
   //Display logic
   displayExams: function () {
+
     $.ajax({
-      url: "../rest/getAllExams",
+      url: "../rest/getExamByUserId",
       type: "GET",
       contentType: "application/json",
       dataType: "json",
@@ -107,7 +108,7 @@ var ExamService = {
                     <div class="content" style = "display:flex; flex-direction: column; align-items: center;">
                     <time class="deadline-exam" datetime="2024-03-12" style = "margin-bottom: 10px;"><b>Deadline:</b> ${exam.date_time}</time>
                         <div class= "view-buttons" style = "display: flex; flex-direction: row;">
-                          <div class="dropdown">
+                          <div class="dropdown is-hoverable">
                             <div class="dropdown-trigger">
                                 <button class="button is-success" id="view-exam-details" aria-haspopup="true" aria-controls="dropdown-menu3" style="background-color: #0272a1; color: #eaeaea;">View
                                   <span class="icon is-small">
@@ -213,7 +214,7 @@ var ExamService = {
 
         $("#dashExams").append(output2);
 
-        // Add event listener for dropdown trigger buttons
+       /* // Add event listener for dropdown trigger buttons
         $(document).on('click', '.dropdown-trigger button', function () {
           $(this).closest('.dropdown').toggleClass('is-active');
         });
@@ -223,7 +224,7 @@ var ExamService = {
           if (!$(e.target).closest('.dropdown').length) {
             $('.dropdown').removeClass('is-active');
           }
-        });
+        });*/
 
 
         //Fetch task data based on index
@@ -296,7 +297,7 @@ var ExamService = {
         // Update the data of the card -> find the card and than update 
         var $examElement = $(`#exam-card[exam-id="${examId}"]`);
         $examElement.find('.card-header-title').text(entity.title);
-        $examElement.find('.deadline-exam').text(entity.deadline);
+        $examElement.find('.deadline-exam').text(entity.date_time);
         $examElement.find('.details-exam').text(entity.details);
         alert("Exam edited sucessfully!");
         $('#editExamModal').removeClass('is-active');

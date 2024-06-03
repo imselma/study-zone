@@ -1,5 +1,5 @@
 <?php
-require '../vendor/autoload.php'; 
+require './vendor/autoload.php'; 
 require "./services/BaseService.php";
 require "./services/UserService.php";
 require "./services/TipsService.php";
@@ -18,6 +18,7 @@ Flight::register('exams_service', "ExamsService");
 Flight::register('auth_service', "AuthService");
 
 
+require './routes/MiddlewareRoutes.php';
 require './routes/UserRoutes.php';
 require './routes/TipsRoutes.php';
 require './routes/TasksRoutes.php';

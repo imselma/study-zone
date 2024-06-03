@@ -77,7 +77,7 @@ var TaskService = {
   //Display logic
   displayTasks: function () {
     $.ajax({
-      url: "../rest/getAllTasks",
+      url: "../rest/getTaskByUserId",
       type: "GET",
       contentType: "application/json",
       dataType: "json",
@@ -107,7 +107,7 @@ var TaskService = {
                     <div class="content" style = "display:flex; flex-direction: column; align-items: center;">
                         <time class="deadline-task" datetime="2024-03-12" style = "margin-bottom: 10px;"><b>Deadline:</b> ${task.deadline}</time>
                         <div class= "view-buttons" style = "display: flex; flex-direction: row;">
-                          <div class="dropdown">
+                          <div class="dropdown is-hoverable">
                             <div class="dropdown-trigger">
                                 <button class="button is-success" id="view-task-details" aria-haspopup="true" aria-controls="dropdown-menu3" style="background-color: #0272a1; color: #eaeaea;">View
                                   <span class="icon is-small">
@@ -214,7 +214,7 @@ var TaskService = {
     $("#dashTasks").append(output2);
 
 
-        // Add event listener for dropdown trigger buttons
+      /*  // Add event listener for dropdown trigger buttons
         $(document).on('click', '.dropdown-trigger button', function () {
           $(this).closest('.dropdown').toggleClass('is-active');
         });
@@ -224,7 +224,7 @@ var TaskService = {
           if (!$(e.target).closest('.dropdown').length) {
             $('.dropdown').removeClass('is-active');
           }
-        });
+        });*/
 
 
         //Fetch task data based on index

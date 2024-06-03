@@ -6,10 +6,8 @@ var getUser = {
 
     displayUser: function () {
 
-        let userId = localStorage.getItem("users_id");
-        console.log("id",userId);
         $.ajax({
-            url: "../rest/getUserById/" + userId,
+            url: "../rest/getUserById",
             type: "GET",
             contentType: "application/json",
             dataType: "json",

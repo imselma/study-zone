@@ -1,8 +1,5 @@
 <?php
 
-use Firebase\JWT\JWT;
-use Firebase\JWT\Key;
-
 /**
      * @OA\Post(
      *      path="/addTask",
@@ -18,38 +15,25 @@ use Firebase\JWT\Key;
      *      @OA\RequestBody(
      *          description="Task data payload.",
      *          @OA\JsonContent(
-     *              required={"title","details","deadline","user_id"},
+     *              required={"title","details","deadline"},
      *              @OA\Property(property="title", type="string", example="Web - milestone #4", description="Title"),
      *              @OA\Property(property="details", type="string", example="Finish backen and add QopenAPI and JWT.", description="Details"),
-     *              @OA\Property(property="deadline", type="string", example="14 May, 2024", description="Deadline"),
-     *              @OA\Property(property="users_id", type="string", example="16", description="Update task's id")
+     *              @OA\Property(property="deadline", type="string", example="14 May, 2024", description="Deadline")
      *          )
      *      )
      * )
      */
 Flight::route("POST /addTask", function() {
 
-   try{
-      $token = Flight::request()->getHeader("Authentication");
-      if(!$token){
-         Flight::halt(401, "Missing authentication header!");
-      }
-      $decoded_token = JWT::decode($token, new Key(JWT_SECRET, 'HS256')); //If I add something it would fail because I am trying to decode jwt token signed with one secret, with another
-
-      $payload = Flight::request()->data->getData();  //Getting data from the request payload.
-      //Making an instance of Userservice
+      $payload = Flight::request()->data->getData();
+      $payload['users_id']= Flight::get('user')->id;
       $tasksService = new TasksService();
-      //Add task to db
       $result = $tasksService->addTask($payload);
+   
 
       Flight::json([
-         'jwt_decoded' => $decoded_token,
-         'user' => $decoded_token->user,
          'result' => $result
       ]);
-   }catch(\Exception $e){
-      Flight::halt(401, $e->getMessage()); //401 -> means unauthenticated user
-   }
 });
 
 /**
@@ -68,26 +52,12 @@ Flight::route("POST /addTask", function() {
      */
 Flight::route("GET /getAllTasks", function(){
 
-   try{
-      $token = Flight::request()->getHeader("Authentication");
-      if(!$token){
-         Flight::halt(401, "Missing authentication header!");
-      }
-      $decoded_token = JWT::decode($token, new Key(JWT_SECRET, 'HS256')); //If I add something it would fail because I am trying to decode jwt token signed with one secret, with another
-
       $tasksService = new TasksService();
-      //get_all() is inherited from BaseService. TipsService extends BaseService, which contains the get_all() method, you don't need to define it again in TipsService again like the POST method where you are sending some data.
       $result = $tasksService->get_all();
    
       Flight::json([
-         'jwt_decoded' => $decoded_token,
-         'user' => $decoded_token->user,
          'result' => $result
       ]);
-
-   }catch(\Exception $e){
-      Flight::halt(401, $e->getMessage()); //401 -> means unauthenticated user
-   }
 });
 
 /**
@@ -107,26 +77,37 @@ Flight::route("GET /getAllTasks", function(){
      */
 Flight::route("GET /getTaskById/@id", function($id){
 
-   try{
-      $token = Flight::request()->getHeader("Authentication");
-      if(!$token){
-         Flight::halt(401, "Missing authentication header!");
-      }
-      $decoded_token = JWT::decode($token, new Key(JWT_SECRET, 'HS256')); //If I add something it would fail because I am trying to decode jwt token signed with one secret, with another
-
       $tasksService = new TasksService();
       $result = $tasksService->get_by_id($id);
 
       Flight::json([
-         'jwt_decoded' => $decoded_token,
-         'user' => $decoded_token->user,
          'result' => $result
       ]);
-
-   }catch(\Exception $e){
-      Flight::halt(401, $e->getMessage()); //401 -> means unauthenticated user
-   }
 });
+
+/**
+     * @OA\Get(
+     *      path="/getTaskByUserId",
+     *      tags={"tasks"},
+     *      summary="Get task by user id.",
+     *      security={
+     *         {"ApiKey": {}}
+     *      },
+     *      @OA\Response(
+     *           response=200,
+     *           description="Get task data or 500 status code exception otherwise"
+     *      )
+     * )
+     */
+    Flight::route("GET /getTaskByUserId", function(){
+
+      $taskService = new TasksService();
+      $result = $taskService->getTaskByUserId(Flight::get('user')->id);
+ 
+      Flight::json([
+         'result' => $result
+      ]);
+ });
 
 /**
     * @OA\Put(
@@ -156,26 +137,13 @@ Flight::route("GET /getTaskById/@id", function($id){
     */
 Flight::route("PUT /editTask/@id", function($id){
 
-   try{
-      $token = Flight::request()->getHeader("Authentication");
-      if(!$token){
-         Flight::halt(401, "Missing authentication header!");
-      }
-      $decoded_token = JWT::decode($token, new Key(JWT_SECRET, 'HS256')); //If I add something it would fail because I am trying to decode jwt token signed with one secret, with another
-
       $payload = Flight::request()->data->getData();
       $tasksService = new TasksService();
       $result = $tasksService->update($payload,$id);
 
       Flight::json([
-         'jwt_decoded' => $decoded_token,
-         'user' => $decoded_token->user,
          'result' => $result
-      ]);   
-
-   }catch(\Exception $e){
-      Flight::halt(401, $e->getMessage()); //401 -> means unauthenticated user
-   }
+      ]);
 });
 
  /**
@@ -195,23 +163,6 @@ Flight::route("PUT /editTask/@id", function($id){
      */
 Flight::route("DELETE /deleteTask/@id", function($id){
 
-   try{
-      $token = Flight::request()->getHeader("Authentication");
-      if(!$token){
-         Flight::halt(401, "Missing authentication header!");
-      }
-      $decoded_token = JWT::decode($token, new Key(JWT_SECRET, 'HS256')); //If I add something it would fail because I am trying to decode jwt token signed with one secret, with another
-
       Flight::tasks_service()->delete($id);
-
-      Flight::json([
-         'jwt_decoded' => $decoded_token,
-         'user' => $decoded_token->user
-      ]);
-      
-   }catch(\Exception $e){
-      Flight::halt(401, $e->getMessage()); //401 -> means unauthenticated user
-   }
- 
  });
 ?>

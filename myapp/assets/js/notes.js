@@ -69,7 +69,7 @@ var NoteService = {
   //Display logic
   displayNotes: function () {
     $.ajax({
-      url: "../rest/getAllNotes",
+      url: "../rest/getNoteByUserId",
       type: "GET",
       contentType: "application/json",
       dataType: "json",
@@ -98,7 +98,7 @@ var NoteService = {
                   <div class="card-content">
                     <div class="content" style = "display:flex; flex-direction: column; align-items: center;">
                         <div class= "view-buttons" style = "display: flex; flex-direction: row;">
-                          <div class="dropdown">
+                          <div class="dropdown is-hoverable">
                             <div class="dropdown-trigger">
                                 <button class="button is-success" id="view-note-details" aria-haspopup="true" aria-controls="dropdown-menu3" style="background-color: #0272a1; color: #eaeaea;">View
                                   <span class="icon is-small">
@@ -197,7 +197,7 @@ var NoteService = {
         $("#dashNotes").append(output2);
       
 
-        // Add event listener for dropdown trigger buttons
+       /* // Add event listener for dropdown trigger buttons
         $(document).on('click', '.dropdown-trigger button', function () {
           $(this).closest('.dropdown').toggleClass('is-active');
         });
@@ -207,7 +207,7 @@ var NoteService = {
           if (!$(e.target).closest('.dropdown').length) {
             $('.dropdown').removeClass('is-active');
           }
-        });
+        });*/
 
 
         //Fetch task data based on index
