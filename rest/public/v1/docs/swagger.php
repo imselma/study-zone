@@ -5,7 +5,7 @@ require __DIR__ . '/../../../vendor/autoload.php';
 if($_SERVER['SERVER_NAME'] == 'localhost' || $_SERVER['SERVER_NAME'] == '127.0.0.1'){
     define('BASE_URL', 'http://localhost:80/study-zone/rest/');
 } else {
-    define('BASE_URL', 'https://whale-app-zhabk.ondigitalocean.app/rest/');
+    define('BASE_URL', 'https://dolphin-app-pfh9z.ondigitalocean.app/rest/');
 }
 
 error_reporting(0);

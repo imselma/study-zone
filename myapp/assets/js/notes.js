@@ -40,7 +40,7 @@ var NoteService = {
   //Add logic
   addNote: function (entity) {
     $.ajax({
-      url: "../rest/addNote",
+      url: Constants.get_api_base_url() + "addNote",
       type: "POST",
       data: JSON.stringify(entity),
       contentType: "application/json",
@@ -69,7 +69,7 @@ var NoteService = {
   //Display logic
   displayNotes: function () {
     $.ajax({
-      url: "../rest/getNoteByUserId",
+      url: Constants.get_api_base_url() + "getNoteByUserId",
       type: "GET",
       contentType: "application/json",
       dataType: "json",
@@ -259,7 +259,7 @@ var NoteService = {
 
   editNote: function (entity, noteId) {
     $.ajax({
-      url: "../rest/editNote/" + noteId,
+      url: Constants.get_api_base_url() + "editNote/" + noteId,
       type: "PUT",
       data: JSON.stringify(entity),
       contentType: "application/json",
@@ -298,7 +298,7 @@ var NoteService = {
 
   deleteNote: function (noteId) {
     $.ajax({
-      url: "../rest/deleteNote/" + noteId,
+      url: Constants.get_api_base_url() + "deleteNote/" + noteId,
       type: "DELETE",
       contentType: "application/json",
       beforeSend: function(xhr) {

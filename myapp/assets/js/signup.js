@@ -73,7 +73,7 @@ var UserService = {
 
     register: function(entity) {
         $.ajax({
-            url: "../rest/addUser",
+            url: Constants.get_api_base_url() + "addUser",
             type: "POST",
             data: JSON.stringify(entity),
             contentType: "application/json",
