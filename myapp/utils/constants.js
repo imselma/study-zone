@@ -3,7 +3,7 @@ var Constants = {
       if(location.hostname == 'localhost'){
         return "http://localhost:80/study-zone/rest/";
       } else {
-        return "https://dolphin-app-pfh9z.ondigitalocean.app/rest/";
+        return "https://dolphin-app-imkza.ondigitalocean.app/rest/";
       }
     }
   };
